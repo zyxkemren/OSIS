@@ -1,0 +1,39 @@
+.button {
+  border-radius: 10px;
+  color: #f0f0f0;
+  transition: all 0.2s ease;
+  transform: scale(1);
+  padding: 10px 15px;
+}
+
+.button:hover {
+  transform: scale(1.03);
+}
+
+.button-add {
+  background-color: #5865f2;
+}
+
+.button-add:hover {
+  background-color: #6a79ff;
+}
+
+.button-add:active {
+  transform: scale(0.98);
+  transition: all 0.1s ease;
+  background-color: #5865f2;
+}
+
+.button-reset {
+  background-color: #6b8094;
+}
+
+.button-reset:hover {
+  background-color: #809ab2;
+}
+
+.button-reset:active {
+  transform: scale(0.98);
+  transition: all 0.1s ease;
+  background-color: #6b8094;
+}

@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { collection, addDoc, getDocs } from "firebase/firestore";
@@ -21,15 +20,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 const auth = getAuth(app);
-
 // nambahain data
 const addData = async (col, data) => {
     try {
         const docRef = await addDoc(collection(db, col), data);
-        return {};
+        return { success: true, id: docRef.id };
     } catch (e) {
         console.error("Error adding document: ", e);
         return e;
@@ -38,7 +35,12 @@ const addData = async (col, data) => {
 
 // read data
 const getData = async (col) => {
-    return await getDocs(collection(db, col));
-}
+    const snapshot = await getDocs(collection(db, col));
 
-export { db, analytics, auth, addData, getData };
+    return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+};
+
+export { db, auth, addData, getData };

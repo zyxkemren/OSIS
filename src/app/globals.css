@@ -1,26 +1,141 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+p {
+  color: #dcd9d9;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.footer {
+  font-family: var(--font-plusjakarta), sans-serif;
+  font-size: 12px;
+  margin: 5% 0 0 0;
+  width: 100%;
+  padding-bottom: 25px;
+  text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.footer a:hover {
+  text-decoration: underline;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1e1e29;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.button {
+  text-align: center;
+  background-color: #a7d5ec;
+  font-size: 0.9rem;
+  padding: 12px 30px;
+  color: black;
+  cursor: pointer;
+  border-radius: 50px;
+  text-decoration: none;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.main-container a:hover {
+  text-decoration: underline;
+}
+
+#swal2-validation-message {
+  background: rgb(29, 28, 28);
+  color: #fff;
+}
+
+.swal2-validation-message {
+  background: rgb(29, 28, 28);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #1e1e29;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #282832;
+  border-radius: 50px;
+}
+
+#swal2-validation-message {
+  background: rgb(29, 28, 28);
+  color: #fff;
+}
+
+.swal2-validation-message {
+  background: rgb(29, 28, 28);
+  color: #fff;
+}
+
+/* Menonaktifkan autofill dan suggestion untuk input password */
+input[type="password"]:-webkit-autofill {
+  background-color: transparent !important;
+  -webkit-text-fill-color: #000 !important;
+}
+
+input[type="password"] {
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.bouncing-loader {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 90px;
+  height: 50px;
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bouncing-loader-s {
+  position: unset !important;
+  margin: 50px 0 150px 50%;
+}
+
+.bouncing-loader-s div {
+  background-color: var(--s-third-color) !important;
+}
+
+.bouncing-loader div {
+  width: 15px;
+  height: 15px;
+  background-color: #52525c;
+  border-radius: 50%;
+  animation: bounce 1s infinite ease-in-out;
+}
+.bouncing-loader div:nth-child(1) {
+  animation-delay: 0s;
+}
+.bouncing-loader div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.bouncing-loader div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.7);
+  }
 }

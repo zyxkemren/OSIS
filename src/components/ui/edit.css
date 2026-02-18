@@ -1,0 +1,271 @@
+.edit-container {
+  margin: 70px 0;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-title {
+  margin: 20px 30px;
+}
+
+.edit-form {
+  margin: 0 30px 30px;
+}
+
+.edit-range {
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: row;
+  width: 100%; 
+  max-width: 600px;
+}
+
+.subedit-range {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1; 
+}
+
+.subedit-range-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%; /* Container slider mengikuti lebar parent */
+}
+
+.subedit-range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; /* Slider mengisi penuh lebar container */
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+  background: linear-gradient(to right, #5865f2 0%, #17181f 100%);
+}
+
+.subedit-range-desc-container {
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.subedit-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: #5865f2;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.subedit-range-input::-webkit-slider-thumb:hover,
+.subedit-range-input::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+
+.subedit-range-input::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: #5865f2;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.subedit-range-input::-moz-range-thumb:hover,
+.subedit-range-input::-moz-range-thumb:active {
+  transform: scale(1.2);
+}
+
+.subedit-range-desc {
+  color: rgb(92, 92, 92);
+  font-weight: 500;
+  font-size: 0.8em;
+}
+
+.subedit-text {
+  width: 90px;
+  margin: -10px 0 0 30px;
+  background-color: #17181f;
+  border-radius: 10px;
+  padding: 0 10px;
+  text-align: center;
+}
+
+.subedit-text:focus {
+  outline: 2px solid #5865f2;
+}
+
+.form-input {
+  display: block;
+  background-color: #17181f;
+  height: 50px;
+  padding: 0 15px;
+  border-radius: 10px;
+  outline: none;
+  max-width: 600px;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: 2px solid #272934;
+}
+
+.form-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  color: #9f9f9f;
+  font-size: 12px;
+  margin: 20px 0 10px;
+}
+
+.form-textarea {
+  display: block;
+  padding: 10px 15px;
+  background-color: #17181f;
+  border-radius: 10px;
+  height: 345px;
+  width: 100%;
+  resize: none;
+}
+
+.form-textarea-action {
+  display: block;
+  padding: 10px 15px;
+  background-color: #17181f;
+  border-radius: 10px;
+  height: 90px;
+  width: 100%;
+  resize: none;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 30px;
+}
+
+.form-container.single-column {
+  grid-template-columns: 1fr;
+  gap: unset;
+}
+
+.form-left,
+.form-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.display-container {
+  margin: 0;
+}
+
+.display-item {
+  border-radius: 8px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+  max-width: 100%;
+}
+
+.display-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #17181f;
+  cursor: pointer;
+}
+
+.display-item-header div {
+  display: flex;
+  align-items: center;
+  gap: 20px; 
+}
+
+.display-item-header span {
+  font-size: 16px;
+}
+
+.display-item-content {
+  background: #252631;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.input-hidden {
+  -webkit-text-security: disc;
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.input-hidden::placeholder {
+  letter-spacing: 0px;
+  font-weight: normal;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #17181f;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  left: 8px;
+  bottom: 8px;
+  background-color: #272934;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+  background-color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .form-container {
+    grid-template-columns: 1fr;
+    gap: unset;
+  }
+
+  .edit-range,
+  .form-input,
+  .display-item {
+    max-width: 500px;
+    width: 100% !important;
+  }
+}

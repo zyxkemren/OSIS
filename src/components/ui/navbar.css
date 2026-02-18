@@ -1,0 +1,147 @@
+.navbar {
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  right: 2%;
+  height: 80px;
+  background: var(--s-primary-color-0);
+  backdrop-filter: blur(15px);
+  border-radius: 10px;
+  border: 1px solid rgba(78, 78, 87, 0.5);
+  box-shadow: 0 0 30px 5px rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  transition: 0.3s all ease-in-out;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  height: 100%;
+}
+
+.logo {
+  color: #fff;
+  font-size: 2em;
+  font-family: "Poppins", sans-serif;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: white;
+  font-size: 17px;
+  padding: 7px 13px;
+  position: relative;
+  text-decoration: none;
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 5px;
+  background-color: var(--s-third-color);
+  visibility: hidden;
+  transition: 0.3s;
+  border-radius: 50px;
+}
+
+nav a.active::after {
+  width: 30px;
+  visibility: visible;
+}
+
+.checkbtn {
+  display: none;
+}
+
+#check {
+  display: none;
+}
+
+@media (max-width: 960px) {
+  .checkbtn {
+    position: absolute;
+    left: 20px;
+    display: block;
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  nav {
+    justify-content: flex-start;
+  }
+
+  .logo {
+    margin-left: 60px;
+  }
+
+  nav ul {
+    position: fixed;
+    top: 115%;
+    left: -100vw;
+    background: var(--s-primary-color-0);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(78, 78, 87, 0.5);
+    flex-direction: column;
+    align-items: center;
+    transition: left 0.5s;
+    width: 50%;
+    min-width: 400px;
+    border-radius: 10px;
+    z-index: 2;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 30px 80px;
+    line-height: 30px;
+  }
+
+  nav ul li a {
+    font-size: 20px;
+    color: #c2bcbc;
+  }
+
+  nav a.active,
+  nav a:hover {
+    color: #fff;
+    opacity: 1 !important;
+    transition: color 0.3s ease !important;
+  }
+
+  #check:checked ~ ul {
+    left: 0;
+  }
+
+  nav a::after {
+    display: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .logo {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 420px) {
+  nav ul {
+    min-width: 100%;
+  }
+}

@@ -1,0 +1,37 @@
+.stats {
+  margin: 50px 0 0 0;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.space-line {
+  width: 3px;
+  background-color: var(--body-color);
+  height: 100px;
+}
+
+.stats h1 {
+  font-weight: 500;
+}
+
+.sub-stats {
+  text-align: center;
+  margin: 20px 7vw;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus {
+  color: var(--yes-color);
+}
+
+.mins {
+  color: var(--no-color);
+}
