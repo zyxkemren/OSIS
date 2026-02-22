@@ -19,12 +19,17 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
           </li>
           <li>
             <Link href="/perks" className={active === 2 ? "active" : ""}>
-              Rank Perks
+              Cabinet
+            </Link>
+          </li>
+          <li>
+            <Link href="/perks" className={active === 2 ? "active" : ""}>
+              Event
             </Link>
           </li>
           <li>
             <a href="https://dsc.gg/anomaly-network/" target="_blank" rel="noopener noreferrer">
-              Discord Server
+              Instagram
             </a>
           </li>
         </ul>
