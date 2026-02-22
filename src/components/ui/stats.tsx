@@ -112,7 +112,7 @@ export function Leaderboard({ data }) {
   const [avatars, setAvatars] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(data?.[0] || null); // Default to the first option if data exists
+  const [selectedOption, setSelectedOption] = useState(data?.[0] || null);
 
   const handleSelectChange = (selected) => {
     const newOption = data.find((option) => option.value === selected.value);
@@ -131,18 +131,30 @@ export function Leaderboard({ data }) {
       try {
         if (selectedOption && selectedOption.data) {
           const avatarPromises = selectedOption.data.map(async (player) => {
-            const response = await fetch(`https://mc-heads.net/avatar/${player.name}`);
-            if (!response.ok) {
-              throw new Error(`Error fetching avatar for ${player.name}`);
+            console.log("Player data:", player); // Debugging
+
+            const playerId = player.id || player.name; // Pakai name jika id tidak ada
+            const encodedName = encodeURIComponent(player.name); // Encode URL-safe
+            const avatarUrl = `https://mc-heads.net/avatar/${encodedName}/64`;
+
+            try {
+              const response = await fetch(avatarUrl, { method: "HEAD" });
+              if (!response.ok) throw new Error("Avatar not found");
+              return { id: playerId, avatarUrl };
+            } catch {
+              return { id: playerId, avatarUrl: "/steve.webp" };
             }
-            return { id: player.id, avatarUrl: response.url };
           });
 
           const avatarData = await Promise.all(avatarPromises);
+          console.log("Avatar Data:", avatarData); // Debug
+
           const avatarMap = avatarData.reduce((acc, curr) => {
             acc[curr.id] = curr.avatarUrl;
             return acc;
           }, {});
+
+          console.log("Avatar Map:", avatarMap); // Debug
 
           setAvatars(avatarMap);
         }
@@ -182,15 +194,15 @@ export function Leaderboard({ data }) {
         />
         <div style={{ margin: "20px 0" }}>
           {loading ? (
-            <p key={1}>Loading avatars...</p>
+            <p>Loading avatars...</p>
           ) : error ? (
             <p>Error: {error}</p>
           ) : !selectedOption || !selectedOption.data ? (
             <p>No data available</p>
           ) : (
-            selectedOption.data.map((data) => (
+            selectedOption.data.map((player) => (
               <div
-                key={data.id}
+                key={player.id || player.name}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -201,15 +213,15 @@ export function Leaderboard({ data }) {
               >
                 <div style={{ display: "flex", alignItems: "center" }}>
                   <Image
-                    src={avatars[data.id] || "https://mc-heads.net/avatar/steve"}
-                    alt={`${data.name}'s avatar`}
+                    src={avatars[player.name] ?? "/steve.webp"}
+                    alt={`${player.name}'s avatar`}
                     width={40}
                     height={40}
                     style={{ borderRadius: "10px", marginRight: "10px" }}
                   />
-                  <span style={{ fontWeight: "500" }}>{data.name}</span>
+                  <span style={{ fontWeight: "500" }}>{player.name}</span>
                 </div>
-                <span style={{ fontWeight: "600" }}>{"IDR " + data.totalcoin.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
+                <span style={{ fontWeight: "600" }}>{"IDR " + player.totalcoin.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}</span>
               </div>
             ))
           )}
