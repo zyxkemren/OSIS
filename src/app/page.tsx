@@ -57,7 +57,7 @@ export default function HomePage() {
           <div className="bg-white w-full text-center px-full py-[10px] rounded-[50px] cursor-pointer">Learn more</div>
         </div>
       </div>
-      <div className="flex flex-row justify-between bg-yellow-300 w-full p-20 gap-[5vw]">
+      <div className="flex flex-row justify-between bg-yellow-300 w-full p-30 gap-[5vw]">
         <div className="flex flex-col max-w-[60vw] gap-[25px]">
           <span className="text-[2rem] font-bold">Introduction to Arthawisesa</span>
           <p className="whitespace-pre-line">
@@ -77,8 +77,12 @@ export default function HomePage() {
               allowFullScreen
             ></iframe>
           </div>
-          <p className="mt-4 text-center font-medium text-gray-700">🎥 After Movie LDKS & Sertijab OSIS</p>
+          <p className="mt-4 text-center font-medium text-gray-700">🎥 After Movie Nasionalismeku 2024</p>
         </div>
+      </div>
+      <div className="w-full px-30 py-15 bg-red-500 flex flex-row">
+        <div className="w-[400px] h-[250px] bg-white rounded-[20px]"></div>
+        <div></div>
       </div>
     </main>
   );
