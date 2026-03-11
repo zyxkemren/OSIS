@@ -50,18 +50,21 @@ export default function HomePage() {
           <BiSolidLeftArrow className="text-white text-4xl" />
           <BiSolidRightArrow className="text-white text-4xl" />
         </div>
-        <div className="flex flex-row justify-between w-full z-2">
-          <div className="flex flex-col items-center justify-center gap-3">
+        <div className="flex flex-row items-center justify-between w-full z-2">
+          <div className="flex flex-col items-center justify-end gap-3">
             <div className="flex flex-col">
               <span className="text-gray-200">Our event</span>
               <h2 className="event-name text-white text-[2rem] font-[100]">SANLAT (Pesantren Kilat) 26</h2>
             </div>
             <div className="bg-white w-full text-center px-full py-[10px] rounded-[50px] cursor-pointer">Learn more</div>
           </div>
-          <div className="flex flex-row items-center items-center gap-[2rem] drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+          <div className="flex flex-col gap-2 justify-end">
+            <div className="flex flex-row items-center items-center justify-between drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+              <Image src="/img/osisalba.svg" alt="Logo" width={50} height={50} unoptimized={true} />
+              <Image src="/img/osis.svg" alt="Logo" width={35} height={35} unoptimized={true} />
+              <Image src="/img/alba.svg" alt="Logo" width={50} height={50} unoptimized={true} />
+            </div>
             <p>SMA PU AL BAYAN CIBADAK</p>
-            <Image src="/img/osisalba.svg" alt="Logo" width={60} height={50} unoptimized={true} />
-            <Image src="/img/alba.svg" alt="Logo" width={60} height={50} unoptimized={true} />
           </div>
         </div>
       </div>
