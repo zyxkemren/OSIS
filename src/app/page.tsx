@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { BiSolidRightArrow, BiSolidLeftArrow } from "react-icons/bi";
 import Navbar from "@/components/ui/navbar";
 import Image from "next/image";
+import "./main.css";
 
 export default function HomePage() {
   const [data, setData] = useState<any[]>([]);
@@ -32,27 +33,16 @@ export default function HomePage() {
 
   return (
     <main className="overflow-x-hidden">
-      <div className="background"></div>
       <Navbar active={1} logo="OSIS AL Bayan" />
-      <div className="start w-full h-[80vh] flex flex-col items-start justify-between px-30 pb-25 pt-25">
-        <div className="start-menu w-full h-[100px] flex flex-row justify-between items-center">
-          <h2>SMA PU Albayan Cibadak</h2>
-          <div className="logo flex flex-row items-center gap-4">
-            <span>
-              <Image src="/img/osis.png" alt="Logo" width={50} height={50} />
-            </span>
-            <span>
-              <Image src="/img/alba.png" alt="Logo" width={60} height={50} />
-            </span>
-          </div>
-        </div>
+      <div className="start w-full h-[100vh] flex flex-col items-start justify-between px-30 pb-25 pt-25">
         <div className="banner">
           <Image
-            src="/img/abcd25.png" // Ganti dengan path gambarmu
+            src="/img/_MG_7205.jpg.jpeg" // Ganti dengan path gambarmu
             alt="Albacadabra Background"
             layout="fill"
             objectFit="fit"
             objectPosition="bottom"
+            unoptimized={true}
             priority
           />
         </div>
@@ -60,14 +50,22 @@ export default function HomePage() {
           <BiSolidLeftArrow className="text-white text-4xl" />
           <BiSolidRightArrow className="text-white text-4xl" />
         </div>
-        <div className="flex flex-col items-center justify-center gap-3">
-          <div className="flex flex-col">
-            <span className="text-gray-200">Our event</span>
-            <span className="text-white text-[2rem] font-bold">Albacadabra 2K25</span>
+        <div className="flex flex-row justify-between w-full z-2">
+          <div className="flex flex-col items-center justify-center gap-3">
+            <div className="flex flex-col">
+              <span className="text-gray-200">Our event</span>
+              <h2 className="event-name text-white text-[2rem] font-[100]">SANLAT (Pesantren Kilat) 26</h2>
+            </div>
+            <div className="bg-white w-full text-center px-full py-[10px] rounded-[50px] cursor-pointer">Learn more</div>
           </div>
-          <div className="bg-white w-full text-center px-full py-[10px] rounded-[50px] cursor-pointer">Learn more</div>
+          <div className="flex flex-row items-center items-center gap-[2rem] drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
+            <p>SMA PU AL BAYAN CIBADAK</p>
+            <Image src="/img/osisalba.svg" alt="Logo" width={60} height={50} unoptimized={true} />
+            <Image src="/img/alba.svg" alt="Logo" width={60} height={50} unoptimized={true} />
+          </div>
         </div>
       </div>
+      <div className="relative z-1 w-full h-[200px] bg-gradient-to-t from-[#001f3f] to-transparent -mt-[280px]"></div>
       <div className="flex flex-row justify-between bg-[#001f3f] w-full p-50 gap-[5vw]">
         <div className="flex flex-col max-w-[60vw] gap-[25px]">
           <h2 className="text-[3rem] font-bold">Welcome to Arthawisesa</h2>
@@ -79,19 +77,21 @@ export default function HomePage() {
           </p>
         </div>
         <div className="w-full max-w-[30vw] mx-auto p-4]">
-          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-gray-200">
+          <div className="relative aspect-video rounded-[25px] overflow-hidden drop-shadow-[0_0_40px_#ffffff59]">
             <iframe
-              className="absolute top-0 left-0 w-full h-full"
-              src="https://www.youtube.com/embed/naz0-szzYXk"
+              className="absolute top-0 left-0 w-full h-full border-none"
+              frameBorder={0}
+              src="https://www.youtube.com/embed/Y4mgpC_kj3M"
               title="After Movie OSIS"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              style={{ border: "none" }}
               allowFullScreen
             ></iframe>
           </div>
-          <p className="mt-4 text-center font-medium text-gray-700">🎥 After Movie Nasionalismeku 2024</p>
+          <p className="mt-4 text-center font-medium text-gray-700">🎥 After Movie Sanlat 2026</p>
         </div>
       </div>
-      <div className="w-full px-50 py-10 flex flex-col  bg-[#18191b] ">
+      <div className="w-full px-50 py-10 flex flex-col  bg-[#18191b]">
         <span className="text-center text-white text-[1.5rem] font-black">Follow our social media</span>
         <div className="w-full pt-10 flex flex-row justify-between gap-[3vw]">
           <div className="w-full h-[100px] border-[3px] border-white rounded-[20px]"></div>
@@ -99,7 +99,23 @@ export default function HomePage() {
           <div className="w-full h-[100px] border-[3px] border-white rounded-[20px]"></div>
         </div>
       </div>
-      <div></div>
+      <div className="cabinet py-30 px-50">
+        <h2 className="text-[2rem] font-bold !text-[#304356] mb-10">Meet our cabinet</h2>
+        <div className="w-full flex flex-row gap-4 overflow-x-auto pb-4 custom-scroll">
+          <div className="boxes">
+            <div className="ministry">Kementrian Kontol</div>
+          </div>
+          <div className="boxes">
+            <div className="ministry">Kementrian Kontol</div>
+          </div>
+          <div className="boxes">
+            <div className="ministry">Kementrian Kontol</div>
+          </div>
+          <div className="boxes">
+            <div className="ministry">Kementrian Kontol</div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 }

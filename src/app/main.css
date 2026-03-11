@@ -1,0 +1,53 @@
+.banner {
+  width: 100%;
+  z-index: -1;
+}
+
+.banner img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Styling scrollbar buat Chrome, Safari, dan Edge */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #001f3f; /* Warna background kotak */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #ffffff33; /* Warna batang scroll */
+  border-radius: 10px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #ffffff55;
+}
+
+.boxes {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  min-width: 30%;
+  height: 270px;
+  border: solid 5px #304356;
+  border-radius: 25px;
+}
+
+.ministry {
+  background: #304356;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  margin: 10px;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.event-name {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}

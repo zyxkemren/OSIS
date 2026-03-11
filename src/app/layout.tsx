@@ -1,51 +1,75 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import {
+  Poppins,
+  Montserrat,
+  Work_Sans,
+  Plus_Jakarta_Sans,
+  Lexend,
+  Inter, // Tambah Inter
+} from "next/font/google";
 import "./globals.css";
 import { getData } from "@/lib/firebase/firebase";
 import { Analytics } from "@vercel/analytics/react";
 
-// Load fonts
-const poppins = localFont({
-  src: "./fonts/Poppins-Regular.ttf",
-  variable: "--font-poppins",
+// Konfigurasi Fonts
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--Inter", // Akan dipanggil di CSS via var(--Inter)
 });
 
-const montserrat = localFont({
-  src: "./fonts/Montserrat-VariableFont_wght.ttf",
-  variable: "--font-montserrat",
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
+  variable: "--Poppins",
 });
 
-const workSans = localFont({
-  src: "./fonts/WorkSans-Regular.ttf",
-  variable: "--font-worksans",
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--Montserrat",
 });
 
-const plusJakarta = localFont({
-  src: "./fonts/PlusJakartaSans-VariableFont_wght.ttf",
-  variable: "--font-plusjakarta",
+const workSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--WorkSans",
 });
 
-const lexend = localFont({
-  src: "./fonts/Lexend-VariableFont_wght.ttf",
-  variable: "--font-lexend",
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--PlusJakartaSans",
 });
 
-// Metadata for the page
+const lexend = Lexend({
+  subsets: ["latin"],
+  variable: "--Lexend",
+});
+
 export async function generateMetadata(): Promise<Metadata> {
-  const siteData: any = await getData("general"); // Ambil data dari API / Database
-
+  const siteData: any = await getData("general");
   return {
-    title: siteData?.data?.server_name ?? "OSIS Albayan",
-description:
-  siteData?.data?.website_description ??
-  "Adalah Webstore Minecraft #1 di Indonesia ...",
+    title: siteData?.data?.server_name ?? "OSIS AL BAYAN",
+    description: siteData?.data?.website_description ?? "Official Website",
+    icons: {
+      icon: [{ url: "/img/osisalba.svg", type: "image/svg+xml" }],
+    },
   };
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${montserrat.variable} ${workSans.variable} ${plusJakarta.variable} ${lexend.variable} antialiased`}>
+      <body
+        className={`
+          ${inter.variable}
+          ${poppins.variable} 
+          ${montserrat.variable} 
+          ${workSans.variable} 
+          ${plusJakarta.variable} 
+          ${lexend.variable} 
+          antialiased
+        `}
+      >
         {children}
         <Analytics />
       </body>
