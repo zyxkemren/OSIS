@@ -38,7 +38,7 @@ h1,
 h2 {
   color: #f4f1ec;
   font-family: "Poppins", sans-serif;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 2rem;
 }
 
@@ -48,7 +48,7 @@ h1 {
 
 p {
   color: #e1e1e1;
-  font-family: "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .main-container a:hover {

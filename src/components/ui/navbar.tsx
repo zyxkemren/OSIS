@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 export default function Navbar({ active, logo }: { active: number; logo: string }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  // LOGIC AUTO-CLOSE MENU MOBILE SAAT LAYAR JADI DESKTOP
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 960) {
@@ -16,7 +15,6 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
       }
     };
 
-    // Jalankan sekali saat mount (opsional, tapi bagus buat init)
     handleResize();
 
     window.addEventListener("resize", handleResize);
@@ -25,18 +23,14 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
 
   return (
     <>
-      {/* NAVBAR UTAMA */}
       <div className="navbar">
         <nav>
-          {/* Tombol Hamburger */}
           <button className="checkbtn" onClick={() => setIsOpen(!isOpen)}>
             <LuMenu size={40} style={{ color: "white" }} />
           </button>
 
-          {/* Logo */}
           <h1 className="logo">{logo}</h1>
 
-          {/* MENU DESKTOP */}
           <ul className="desktop-menu">
             <li>
               <Link href="/" className={active === 1 ? "active" : ""}>
@@ -62,7 +56,6 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
         </nav>
       </div>
 
-      {/* MENU MOBILE */}
       <div className={`mobile-menu ${isOpen ? "open" : ""}`}>
         <ul>
           <li>

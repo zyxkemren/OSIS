@@ -1,0 +1,401 @@
+/* --- CONTAINER & GRID --- */
+.proker-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 225px);
+  grid-gap: 1rem;
+}
+
+/* Base Style buat setiap box */
+.proker-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: solid 5px #304356;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.proker-img {
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.proker-box:hover {
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 20px rgba(110, 146, 185, 0.8));
+}
+.proker-box:hover .proker-img {
+  transform: scale(1.08);
+}
+
+/* Mapping Grid Area */
+.proker-div1 {
+  grid-area: 1 / 1 / 3 / 2; /* Full tinggi sebelah kiri */
+}
+
+/* Overlay buat Div 1 (Latest) biar judul kebaca */
+.proker-overlay-latest {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent, transparent);
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+}
+
+/* --- EXPLORE BOX (DIV 5) --- */
+.explore-box {
+  grid-area: 2 / 3 / 3 / 4; /* Posisi kanan bawah */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #e1e1e1;
+  text-align: center;
+  position: relative;
+  border: solid 5px #304356;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.blur-bg {
+  filter: blur(10px);
+  transform: scale(1.1);
+  opacity: 0.5; /* Gelapin dikit biar icon stand out */
+}
+
+.explore-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Styling Icon Kompas */
+.explore-icon {
+  /* Posisi awal tegak lurus atau miring dikit (bebas) */
+  transform: rotate(-10deg);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #304356; /* Warna tetep putih */
+}
+
+/* Teks Explore */
+.explore-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #304356; /* Warna putih agak abu biar kalem */
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+/* --- ANIMASI SAAT HOVER --- */
+
+.explore-box:hover .explore-icon {
+  /* Cuma muter 45 derajat pas di-hover */
+  transform: scale(1.1) rotate(25deg);
+}
+
+.explore-box:hover .explore-text {
+  /* Teks cuma naik dikit biar dinamis */
+  transform: translateY(3px);
+}
+
+/* --- MODAL SYSTEM --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.modal-card {
+  position: relative;
+  background: #18191b;
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: #ff4d4d;
+}
+
+.modal-banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+.modal-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #18191b, transparent 60%);
+}
+
+.modal-body {
+  padding: 0 40px 40px 40px;
+  position: relative;
+  margin-top: -60px; /* Narik konten ke atas gambar dikit */
+  z-index: 5;
+}
+
+.modal-date {
+  color: #60a5fa;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+/* --- MARKDOWN CONTENT STYLING --- */
+.markdown-content {
+  color: #e5e7eb;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  color: #ffffff;
+  margin: 1.5rem 0 1rem 0;
+  font-weight: 700;
+}
+
+.markdown-content p {
+  margin-bottom: 1.2rem;
+}
+
+.markdown-content img {
+  border-radius: 20px;
+  margin: 2rem 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #304356;
+  padding-left: 1.5rem;
+  font-style: italic;
+  color: #9ca3af;
+  margin: 2rem 0;
+}
+
+.markdown-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+/* Styling Modal List */
+.list-modal {
+  max-width: 600px; /* Lebih kecil dari modal detail */
+}
+
+.list-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1f2023;
+}
+
+.list-title {
+  color: white;
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.list-close-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.list-close-btn:hover {
+  color: white;
+}
+
+.list-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Item di dalam list */
+.list-item {
+  display: flex;
+  gap: 15px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.list-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.list-item-img-wrapper {
+  position: relative;
+  width: 90px;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.list-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.list-item-date {
+  font-size: 0.75rem;
+  color: #60a5fa; /* Biru muda */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.list-item-title {
+  color: white;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Container Video di Modal */
+.modal-video-container {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.video-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  height: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .proker-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .proker-div1 {
+    grid-area: auto;
+    height: 300px;
+  }
+
+  .explore-box {
+    grid-area: auto;
+    height: 200px;
+  }
+
+  .modal-body {
+    padding: 0 20px 20px 20px;
+  }
+}

@@ -1,0 +1,127 @@
+.cabinet-section {
+  padding: 50px 0;
+}
+
+.section-title {
+  color: #304356 !important;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cabinet-scroll-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.cabinet-card {
+  position: relative;
+  width: 30%;
+  min-width: 320px;
+  height: 270px;
+  border: solid 5px #304356;
+  border-radius: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.cabinet-bg-img {
+  object-fit: cover;
+  z-index: 1;
+}
+
+.cabinet-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.ministry-tag {
+  background: #304356;
+  color: #e1e1e1;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Modal Internal Styling */
+.modal-title {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.modal-desc {
+  color: #9ca3af;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.member-heading {
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  border-left: 4px solid #304356;
+  padding-left: 15px;
+}
+
+/* Grid Anggota */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.member-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px 10px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.member-photo-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #304356;
+}
+
+.member-photo {
+  object-fit: cover;
+}
+
+.member-name {
+  color: white;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 2px;
+}
+
+.member-role {
+  color: #60a5fa;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.banner-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #18191b, transparent);
+}

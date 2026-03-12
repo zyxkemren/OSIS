@@ -48,7 +48,7 @@ const lexend = Lexend({
 export async function generateMetadata(): Promise<Metadata> {
   const siteData: any = await getData("general");
   return {
-    title: siteData?.data?.server_name ?? "OSIS AL BAYAN",
+    title: siteData?.data?.server_name ?? "OSIS AL BAYAN - Official Website",
     description: siteData?.data?.website_description ?? "Official Website",
     icons: {
       icon: [{ url: "/img/osisalba.svg", type: "image/svg+xml" }],
