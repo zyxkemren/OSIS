@@ -34,15 +34,21 @@ a {
   text-decoration: none;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: #f4f1ec;
-  font-family: "Lexend", sans-serif;
-  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 p {
   color: #e1e1e1;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .main-container a:hover {
@@ -94,7 +100,7 @@ input[type="password"] {
 .bouncing-loader {
   display: flex;
   justify-content: space-around;
-  align-items: flex-end;
+  align-items: center;
   width: 90px;
   height: 50px;
   position: fixed;
@@ -109,15 +115,15 @@ input[type="password"] {
 }
 
 .bouncing-loader-s div {
-  background-color: var(--s-third-color) !important;
+  background-color: #4a5d70 !important;
 }
 
 .bouncing-loader div {
   width: 15px;
   height: 15px;
-  background-color: #52525c;
+  background-color: #4a5d70;
   border-radius: 50%;
-  animation: bounce 1s infinite ease-in-out;
+  animation: loding 1s infinite ease-in-out;
 }
 .bouncing-loader div:nth-child(1) {
   animation-delay: 0s;
@@ -129,7 +135,7 @@ input[type="password"] {
   animation-delay: 0.4s;
 }
 
-@keyframes bounce {
+@keyframes loding {
   0%,
   80%,
   100% {

@@ -1,6 +1,3 @@
-/* ========================================= */
-/* NAVBAR UTAMA (Desktop & Mobile Base)      */
-/* ========================================= */
 .navbar {
   position: fixed;
   top: 2%;
@@ -40,9 +37,6 @@ nav {
   border: none;
 }
 
-/* ========================================= */
-/* MENU DESKTOP                              */
-/* ========================================= */
 .desktop-menu {
   display: flex;
   list-style: none;
@@ -84,9 +78,6 @@ nav {
   visibility: visible;
 }
 
-/* ========================================= */
-/* MENU MOBILE (Elemen Terpisah)             */
-/* ========================================= */
 .mobile-menu {
   position: fixed;
   top: 105px; /* Jarak pas di bawah navbar utama */
@@ -136,9 +127,6 @@ nav {
   transition: color 0.3s ease !important;
 }
 
-/* ========================================= */
-/* BREAKPOINTS SESUAI ASLINYA                */
-/* ========================================= */
 @media (max-width: 960px) {
   .desktop-menu {
     display: none; /* Sembunyikan menu desktop */
@@ -164,6 +152,6 @@ nav {
     font-size: 1.5em;
   }
   .mobile-menu {
-    width: 96%;
+    min-width: unset;
   }
 }
