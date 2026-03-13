@@ -41,21 +41,44 @@
 }
 
 /* Custom Scrollbar biar estetik */
+/* =========================================
+   CABINET HORIZONTAL SCROLLBAR (MATCHING)
+   ========================================= */
+
+/* 1. Aktifkan kembali tapi dibikin ramping */
 .cabinet-scroll-container::-webkit-scrollbar {
-  height: 8px;
-  display: none; /* Ubah ke 'block' kalo mau ditampilin */
+  height: 6px; /* Lebih tipis biar elegan */
+  display: block; /* Ubah dari none ke block */
 }
+
+/* 2. Jalur Scrollbar */
 .cabinet-scroll-container::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.03); /* Sangat tipis biar ga kotor */
   border-radius: 10px;
+  margin: 0 5%; /* Biar jalurnya ga mentok ujung layar */
 }
+
+/* 3. Pegangan Scrollbar (Thumb) */
 .cabinet-scroll-container::-webkit-scrollbar-thumb {
-  background: rgba(48, 67, 86, 0.4);
+  /* Pakai warna slate dengan transparansi */
+  background: rgba(71, 85, 105, 0.4);
   border-radius: 10px;
   transition: all 0.3s ease;
+
+  /* Efek floating: beri border transparan agar thumb terlihat mengecil di tengah */
+  border: 1px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
 }
+
+/* 4. Saat di-hover atau di-scroll */
 .cabinet-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(48, 67, 86, 0.8);
+  background: rgba(71, 85, 105, 0.8); /* Lebih tegas saat disentuh */
+}
+
+/* 5. Firefox Support */
+.cabinet-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(71, 85, 105, 0.4) transparent;
 }
 
 /* =========================================
@@ -130,7 +153,6 @@
 .cabinet-card:hover .cabinet-bg-img {
   transform: scale(1.1); /* Gambar nge-zoom mulus */
 }
-
 
 /* =========================================
    MODAL & MEMBERS GRID STYLING

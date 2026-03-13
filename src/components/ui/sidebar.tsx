@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSidebar } from "../sidebar-provider";
 import { LuMenu } from "react-icons/lu";
 import { useRouter } from "next/navigation";
+import { getData } from "@/lib/firebase/firebase";
 import "./sidebar.css";
 
 export default function Sidebar({ active }) {
@@ -13,6 +14,7 @@ export default function Sidebar({ active }) {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [isNavbar, setIsNavbar] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const router = useRouter();
   const navbarRef = useRef(null);
@@ -79,6 +81,21 @@ export default function Sidebar({ active }) {
     };
   }, [navbarRef]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const generalData = await getData("general");
+
+        setUserData(generalData || {});
+
+        console.log("Fetched user data:", generalData); 
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet" />
@@ -89,17 +106,20 @@ export default function Sidebar({ active }) {
           </button>
           <div className="logo">
             OSIS Alba
-            <img src="https://albayananyer.sch.id/wp-content/uploads/2021/11/cropped-Logo-Al-Baryan-512x512.png" alt="Profile" />
+            <img src={userData?.url} alt="Profile" />
           </div>
           <ul className={`menu-links ${isMenuOpen ? "open" : ""}`}>
             <li className={`nav-link ${active === 0 ? "active" : ""}`}>
               <Link href="/dashboard">Dashboard</Link>
             </li>
             <li className={`nav-link ${active === 1 ? "active" : ""}`}>
-              <Link href="/dashboard/manage">Manage Post</Link>
+              <Link href="/dashboard/manage">Page Content</Link>
             </li>
             <li className={`nav-link ${active === 2 ? "active" : ""}`}>
-              <Link href="/dashboard/theme">Theme</Link>
+              <Link href="/dashboard/cabinet">Cabinet</Link>
+            </li>
+            <li className={`nav-link ${active === 3 ? "active" : ""}`}>
+              <Link href="/dashboard/proker">Proker</Link>
             </li>
           </ul>
         </nav>
@@ -108,7 +128,7 @@ export default function Sidebar({ active }) {
           <header>
             <div className="image-text">
               <span className="image">
-                <img src="https://albayananyer.sch.id/wp-content/uploads/2021/11/cropped-Logo-Al-Baryan-512x512.png" alt="Profile" />
+                <img src={userData?.url} alt="Profile" />
               </span>
               <div className="text logo-text">
                 <span className="name">OSIS Alba</span>
@@ -128,14 +148,20 @@ export default function Sidebar({ active }) {
                 </li>
                 <li className={`nav-link ${active === 1 ? "active" : ""}`}>
                   <Link href="/dashboard/manage">
-                    <i className="bx bx-shopping-bag icon" />
-                    <span className="text nav-text">Manage Post</span>
+                    <i className="bx bx-file icon" />
+                    <span className="text nav-text">Page Content</span>
                   </Link>
                 </li>
                 <li className={`nav-link ${active === 2 ? "active" : ""}`}>
-                  <Link href="/dashboard/theme">
-                    <i className="bx bx-paint-roll icon" />
-                    <span className="text nav-text">Theme</span>
+                  <Link href="/dashboard/cabinet">
+                    <i className="bx bx-group icon" />
+                    <span className="text nav-text">Cabinet</span>
+                  </Link>
+                </li>
+                <li className={`nav-link ${active === 3 ? "active" : ""}`}>
+                  <Link href="/dashboard/proker">
+                    <i className="bx bx-task icon" />
+                    <span className="text nav-text">Proker</span>
                   </Link>
                 </li>
               </ul>

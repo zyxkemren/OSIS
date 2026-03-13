@@ -154,7 +154,7 @@ export default function HomePage() {
     async function fetchData() {
       try {
         const res = await getData("anggota");
-        if (isMounted) setData(res);
+        if (isMounted) setData(res?.data || []);
       } catch (e) {
         console.error(e);
         if (isMounted) setError(true);
@@ -230,7 +230,7 @@ export default function HomePage() {
         <CabinetSection items={dummyCabinet} />
       </section>
 
-      <section id="event" className="sec3 !pt-0 !pb-[5rem]">
+      <section id="proker" className="sec3 !pt-0 !pb-[5rem]">
         <ProkerSection items={sortedProker} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
       </section>
 

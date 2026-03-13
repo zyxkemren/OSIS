@@ -81,8 +81,8 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
               </Link>
             </li>
             <li>
-              <Link href="/#event" onClick={(e) => handleSmoothScroll(e, "event")} className={activeSection === 3 ? "active" : ""}>
-                Event
+              <Link href="/#proker" onClick={(e) => handleSmoothScroll(e, "proker")} className={activeSection === 3 ? "active" : ""}>
+                Program Kerja
               </Link>
             </li>
             <li>
@@ -107,8 +107,8 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
             </Link>
           </li>
           <li>
-            <Link href="/#event" onClick={(e) => handleSmoothScroll(e, "event")} className={activeSection === 3 ? "active" : ""}>
-              Event
+            <Link href="/#proker" onClick={(e) => handleSmoothScroll(e, "proker")} className={activeSection === 3 ? "active" : ""}>
+              Program Kerja
             </Link>
           </li>
           <li>
