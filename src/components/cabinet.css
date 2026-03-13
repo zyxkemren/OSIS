@@ -1,138 +1,284 @@
+/* =========================================
+   CABINET SECTION & LAYOUT
+   ========================================= */
 .cabinet-section {
-  padding: 50px 0;
+  padding: 60px 0; /* Padding digedein dikit biar lega */
+  overflow: hidden; /* Biar glow nggak bikin horizontal scroll bar bocor */
 }
 
 .section-title {
   color: #304356 !important;
-  margin-bottom: 2.5rem;
-  font-size: 2rem;
-  font-weight: 700;
+  margin: 0 5vw 2.5rem;
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 10px rgba(48, 67, 86, 0.1); /* Efek 3D tipis */
 }
 
+/* =========================================
+   SCROLL CONTAINER (HORIZONTAL)
+   ========================================= */
 .cabinet-scroll-container {
   display: flex;
   flex-direction: row;
-  gap: 20px;
+  gap: 25px;
   overflow-x: auto;
-  padding-bottom: 20px;
+  overflow-y: hidden; /* Matiin scroll vertikal biar ga goyang */
+
+  /* INI KUNCINYA: Kasih ruang 5% di kiri-kanan biar ga nempel layar, 
+     dan 40px di bawah biar shadow/glow pas di-hover GA KEPOTONG */
+  padding: 20px 5% 40px 5%;
+
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory; /* Bikin ngerem otomatis (magnet) */
+  scroll-padding-inline: 5%; /* Biar pas ngerem (snap), dia nyisain jarak 5% dari layar */
+
+  /* Sembunyiin scrollbar default di HP biar lebih clean (Opsional) */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+/* Custom Scrollbar biar estetik */
+.cabinet-scroll-container::-webkit-scrollbar {
+  height: 8px;
+  display: none; /* Ubah ke 'block' kalo mau ditampilin */
+}
+.cabinet-scroll-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.cabinet-scroll-container::-webkit-scrollbar-thumb {
+  background: rgba(48, 67, 86, 0.4);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+.cabinet-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(48, 67, 86, 0.8);
+}
+
+/* =========================================
+   CABINET CARDS (MAIN)
+   ========================================= */
 .cabinet-card {
+  aspect-ratio: 16 / 9;
   position: relative;
   width: 30%;
-  min-width: 320px;
-  height: 270px;
-  border: solid 5px #304356;
-  border-radius: 25px;
+  height: auto;
+  min-width: 360px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* UBAH INI: Biar rata kiri pas nge-snap, bukan di tengah */
+  scroll-snap-align: start;
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cabinet-bg-img {
   object-fit: cover;
   z-index: 1;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* =========================================
+   FADE GRADIENT UNTUK CABINET CARDS
+   ========================================= */
 .cabinet-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
-  align-items: flex-end;
+  align-items: flex-end; /* Dorong konten ke bawah */
   justify-content: center;
-  padding: 15px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  padding: 30px 20px 25px 20px;
+
+  /* Gradien gelap dari bawah biar teks judul super jelas */
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.5) 40%, transparent 100%);
+  transition: all 0.4s ease;
 }
 
-.cabinet-card:hover {
-  transform: scale(0.98);
-  filter: drop-shadow(0 0 20px rgba(110, 146, 185, 0.8));
-}
-
-.cabinet-card:hover .cabinet-bg-img {
-  transform: scale(1.08);
-}
-
+/* Bikin teksnya clean tanpa kotak background karena udah ada fade */
 .ministry-tag {
-  background: #304356;
+  background: transparent; /* Hilangin background kaca yang lama (opsional, kalau mau lebih clean) */
+  backdrop-filter: none;
+  border: none;
   color: #e1e1e1;
   width: 100%;
   text-align: center;
-  padding: 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); /* Shadow biar teks pop-up dari gambar */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Modal Internal Styling */
+/* Pas di-hover, fadenya makin naik/gelap dikit biar dramatis */
+.cabinet-card:hover .cabinet-overlay {
+  background: linear-gradient(to top, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%);
+}
+
+.cabinet-card:hover .ministry-tag {
+  transform: translateY(-5px); /* Teks naik dikit pas di hover */
+}
+
+.cabinet-card:hover .cabinet-bg-img {
+  transform: scale(1.1); /* Gambar nge-zoom mulus */
+}
+
+
+/* =========================================
+   MODAL & MEMBERS GRID STYLING
+   ========================================= */
+/* =========================================
+   FADE GRADIENT UNTUK MODAL BANNER
+   ========================================= */
+.modal-banner {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+/* Ini yang bikin transisi dari gambar ke teks jadi super mulus */
+.banner-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(24, 25, 27, 1) 0%,
+    /* Warna solid background modal kamu di paling bawah */ rgba(24, 25, 27, 0.6) 30%,
+    /* Mulai memudar */ transparent 100% /* Transparan di bagian atas gambar */
+  );
+  pointer-events: none;
+}
+
 .modal-title {
   color: white;
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .modal-desc {
-  color: #9ca3af;
+  color: #cbd5e1;
   margin-bottom: 30px;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 1rem;
 }
 
 .member-heading {
   color: white;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  border-left: 4px solid #304356;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  border-left: 4px solid #60a5fa; /* Warna aksen biru terang */
   padding-left: 15px;
+  font-weight: 600;
 }
 
-/* Grid Anggota */
 .members-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 20px;
 }
 
+/* KARTU ANGGOTA (GLASSMORPHISM) */
 .member-card {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  padding: 15px;
+  border-radius: 15px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.member-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-5px);
+  border-color: rgba(96, 165, 250, 0.5); /* Glow biru pas dihover */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .member-photo-wrapper {
   position: relative;
   aspect-ratio: 1 / 1;
-  width: 100%;
-  margin: 0 auto 12px;
-  border-radius: 20px;
+  width: 90%;
+  margin: 0 auto 15px;
+  border-radius: 50%; /* Ubah jadi bulet biar kerasa profilnya */
   overflow: hidden;
-  border: 2px solid #304356;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 3px solid transparent; /* Disiapin buat efek gradient border */
+  background-image: linear-gradient(#18191b, #18191b), linear-gradient(135deg, #304356, #60a5fa);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.member-card:hover .member-photo-wrapper {
+  transform: scale(1.05) rotate(3deg);
 }
 
 .member-photo {
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .member-name {
   color: white;
-  font-weight: 600;
-  font-size: 0.85rem;
-  margin-bottom: 2px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
 }
 
 .member-role {
   color: #60a5fa;
   font-size: 0.75rem;
   font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.banner-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, #18191b, transparent);
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+   ========================================= */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .ministry-tag {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .cabinet-card {
+    min-width: 320px; /* Dikecilin buat tablet/HP gede */
+  }
+
+  .members-grid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cabinet-card {
+    min-width: 85vw; /* Lebarnya menuhin 85% layar HP biar pas */
+    aspect-ratio: 4 / 3; /* Kotaknya dibikin agak tinggi di HP */
+  }
+
+  .ministry-tag {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
 }

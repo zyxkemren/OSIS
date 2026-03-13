@@ -180,34 +180,37 @@ export default function HomePage() {
   if (error) return <h1>error bos</h1>;
 
   return (
-    <main className="overflow-x-hidden">
+    <main className="main-layout">
       <Navbar active={1} logo="OSIS Al Bayan" />
 
       <HeroSection items={dummyHero} onLearnMore={handleLearnMore} />
 
-      <div className="intro flex flex-col justify-between bg-[#001f3f] w-full py-[12rem] px-[15vw] gap-[2rem]">
-        <div className="flex flex-col text-center">
+      <section className="intro-section" id="home">
+        <div className="intro-header">
           <h1>Welcome to Arthawisesa</h1>
         </div>
-        <div className="flex flex-col gap-[5rem]">
-          <p className="whitespace-pre-line text-center">
+
+        <div className="intro-content">
+          <p className="intro-desc">
             {`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries. but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing`}
           </p>
-          <div className="w-full max-w-[40rem] w-[30vw] mx-auto p-4 text-center gap-[1rem] flex flex-col">
-            <div className="relative aspect-video rounded-[25px] overflow-hidden drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+
+          <div className="video-section">
+            <div className="video-box">
               <iframe
-                className="absolute top-0 left-0 w-full h-full border-none"
+                className="video-iframe"
                 src="https://www.youtube.com/embed/Y4mgpC_kj3M?rel=0&controls=0&disablekb=1&autoplay=1&mute=1"
                 title="After Movie OSIS"
                 allowFullScreen
               ></iframe>
             </div>
-            <p className="!text-[#b4b4b4]">🎥 After Movie Sanlat 2026</p>
+            <p className="video-caption">🎥 After Movie Sanlat 2026</p>
           </div>
         </div>
-      </div>
-      <div className="sosmed-container w-full px-[15rem] !py-[2.5rem] flex flex-col  bg-[#18191b]">
-        <div className="w-full flex flex-row justify-center gap-[3vw]">
+      </section>
+
+      <section className="sosmed-section">
+        <div className="sosmed-wrapper">
           <a href="https://www.instagram.com/osis.alba/" target="_blank" rel="noopener noreferrer" className="sosmed">
             <FaInstagram />
             <span>Instagram OSIS Albayan</span>
@@ -221,14 +224,17 @@ export default function HomePage() {
             <span>Instagram MPK Albayan</span>
           </a>
         </div>
-      </div>
+      </section>
 
-      <div className="sec3">
+      <section id="cabinet" className="sec3 !py-[5rem] !px-0">
         <CabinetSection items={dummyCabinet} />
-        <ProkerSection items={sortedProker} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
-      </div>
+      </section>
 
-      <div className="footer">© Kementerian Informasi dan Teknologi 2026</div>
+      <section id="event" className="sec3 !pt-0 !pb-[5rem]">
+        <ProkerSection items={sortedProker} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
+      </section>
+
+      <footer className="footer">© Kementerian Informasi dan Teknologi 2026</footer>
     </main>
   );
 }

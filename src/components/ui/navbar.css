@@ -1,3 +1,6 @@
+/* =========================================
+   NAVBAR WRAPPER & GLASSMORPHISM
+   ========================================= */
 .navbar {
   position: fixed;
   top: 2%;
@@ -5,12 +8,12 @@
   right: 2%;
   height: 80px;
   background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(8px); /* Blur digedein dikit biar lebih premium */
   border-radius: 10px;
-  border: 1px solid rgba(189, 189, 206, 0.3);
-  box-shadow: 10px 0 30px 5px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(189, 189, 206, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Shadow dihalusin */
   z-index: 1000;
-  transition: 0.3s all ease-in-out;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 nav {
@@ -26,17 +29,38 @@ nav {
   color: #fff;
   font-size: 2em;
   font-family: "Poppins", sans-serif;
-  font-weight: 500;
+  font-weight: 600; /* Ditebelin dikit */
+  letter-spacing: 1px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-/* Tombol Hamburger Default (Hilang di Desktop) */
+.logo:hover {
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  transform: scale(1.02);
+}
+
+/* =========================================
+   HAMBURGER BUTTON (MOBILE)
+   ========================================= */
 .checkbtn {
   display: none;
   background: transparent;
   border: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Animasi pas ditekan/di-hover */
+.checkbtn:hover {
+  transform: scale(1.1);
+}
+.checkbtn:active {
+  transform: scale(0.9);
+}
+
+/* =========================================
+   DESKTOP MENU LINKS
+   ========================================= */
 .desktop-menu {
   display: flex;
   list-style: none;
@@ -50,59 +74,83 @@ nav {
 
 .desktop-menu li a,
 .mobile-menu li a {
-  color: white;
+  color: #c2bcbc; /* Default agak redup */
   font-size: 17px;
   padding: 7px 13px;
   position: relative;
   text-decoration: none;
+  transition: all 0.3s ease;
 }
 
+/* Efek text glow pas di hover */
+.desktop-menu li a:hover,
+.mobile-menu li a:hover,
+.desktop-menu a.active,
+.mobile-menu a.active {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* --- ANIMASI GARIS BAWAH (HOVER EFFECT) --- */
 .desktop-menu a::after,
 .mobile-menu a::after {
   content: "";
   position: absolute;
   left: 50%;
   bottom: -2px;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 5px;
+  transform: translateX(-50%) scaleX(0); /* KUNCI ANIMASI: Mulai dari lebar 0 */
+  transform-origin: center;
+  width: 30px;
+  height: 3px;
   background-color: var(--s-third-color, #fff);
-  visibility: hidden;
-  transition: 0.3s;
   border-radius: 50px;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6); /* Garisnya ikutan glowing */
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Transisi lebih fluid */
 }
 
+/* Munculin garis pas hover / active */
+.desktop-menu a:hover::after,
+.mobile-menu a:hover::after,
 .desktop-menu a.active::after,
 .mobile-menu a.active::after {
-  width: 30px;
-  visibility: visible;
+  transform: translateX(-50%) scaleX(1); /* Tarik ke lebar aslinya (30px) */
 }
 
+/* =========================================
+   MOBILE MENU DROPDOWN
+   ========================================= */
 .mobile-menu {
   position: fixed;
-  top: 105px; /* Jarak pas di bawah navbar utama */
-  left: -100vw; /* Sembunyi di kiri defaultnya */
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(189, 189, 206, 0.3);
-  box-shadow: 10px 0 30px 5px rgba(0, 0, 0, 0.3);
+  top: 105px;
+  left: 2%; /* Posisi asli udah diset di sini */
   width: 50%;
-  border-radius: 10px;
-  z-index: 49; /* Tepat di bawah z-index navbar (50) */
-  transition: all 0.5s ease-in-out;
+  background: rgba(0, 0, 0, 0.3); /* Agak lebih gelap biar teks kebaca */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(189, 189, 206, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  border-radius: 15px; /* Lebih rounded */
+  z-index: 49;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  /* ANIMASI SLIDE & FADE YANG LEBIH MEWAH */
+  opacity: 0;
+  pointer-events: none; /* Biar ga bisa diklik pas lagi ngumpet */
+  transform: translateX(-120%) skewX(5deg); /* Nyamping dan miring dikit pas ngumpet */
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Saat tombol hamburger diklik (state isOpen = true) */
+/* Saat tombol hamburger diklik (isOpen = true) */
 .mobile-menu.open {
-  left: 2%; /* Sejajar dengan margin kiri navbar utama */
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0) skewX(0); /* Balik normal */
 }
 
 .mobile-menu ul {
   list-style: none;
-  padding: 0;
+  padding: 20px 0; /* Tambahin padding atas bawah */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -110,26 +158,21 @@ nav {
 }
 
 .mobile-menu ul li {
-  margin: 30px 0;
+  margin: 15px 0;
   line-height: 30px;
 }
 
 .mobile-menu ul li a {
-  font-size: 20px;
-  color: #c2bcbc;
-  font-family: "Poppins", sans-serif;
+  font-size: 18px; /* Dikecilin dikit biar ga kegedean */
+  font-weight: 500;
 }
 
-.mobile-menu a.active,
-.mobile-menu a:hover {
-  color: #fff;
-  opacity: 1 !important;
-  transition: color 0.3s ease !important;
-}
-
+/* =========================================
+   RESPONSIVE BREAKPOINTS
+   ========================================= */
 @media (max-width: 960px) {
   .desktop-menu {
-    display: none; /* Sembunyikan menu desktop */
+    display: none;
   }
 
   .checkbtn {
@@ -139,11 +182,11 @@ nav {
   }
 
   nav {
-    justify-content: flex-start; /* Layout tetap start */
+    justify-content: flex-start;
   }
 
   .logo {
-    margin-left: 60px; /* LOGO GESER KANAN DIKIT BIAR GAK NABRAK HAMBURGER */
+    margin-left: 60px;
   }
 }
 

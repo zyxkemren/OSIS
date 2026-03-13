@@ -1,6 +1,25 @@
 @import "tailwindcss";
+/* (Opsional) Kalau kamu tetep mau bagian deskripsi di dalam modal bisa di-copy orang, 
+   kamu bisa kasih class ini ke elemen paragrafnya: */
+.allow-select {
+  -webkit-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* 2. MENCEGAH IMAGE DI-DRAG & DI-TAHAN (LONG PRESS DI MOBILE) */
+img {
+  -webkit-user-drag: none; /* Mencegah gambar diseret (drag-and-drop) di Desktop */
+  -webkit-touch-callout: none; /* Mencegah muncul pop-up "Save Image" pas ditahan di iPhone/Android */
+
+  /* KUNCI RAHASIA: Bikin gambar kebal dari klik kanan. 
+     Karena fitur "onClick" kamu ada di <div> pembungkusnya (kartunya), 
+     gambar ini aman dibikin "tembus pandang" dari kursor mouse. */
+  pointer-events: none;
+}
 
 html {
+  scroll-behavior: smooth !important;
   overscroll-behavior-y: none;
 }
 
@@ -13,6 +32,9 @@ body {
   padding: 0;
   background-color: #e1e1e1;
   font-family: "Poppins", sans-serif;
+  -webkit-user-select: none; /* Safari/Chrome versi lama */
+  -ms-user-select: none; /* Edge/IE */
+  user-select: none;
 }
 
 .button {
@@ -140,5 +162,40 @@ input[type="password"] {
   }
   50% {
     transform: scale(1.7);
+  }
+}
+
+@media (max-width: 1280px) {
+  .hero-btm {
+    padding: 0 50px;
+  }
+}
+
+@media (max-width: 876px) {
+  .hero-btm {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-txt {
+    width: 100%;
+  }
+  .hero-logo.desktop {
+    display: none;
+  }
+  .hero-logo-mobile {
+    display: flex;
+    width: calc(100% - 4rem);
+  }
+}
+
+@media (max-width: 586px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  h2 {
+    font-size: 1.8rem;
+  }
+  p {
+    font-size: 0.8rem;
   }
 }

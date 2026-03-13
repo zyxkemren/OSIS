@@ -1,76 +1,89 @@
-/* --- CONTAINER & GRID --- */
+/* =========================================
+   CONTAINER & GRID LAYOUT
+   ========================================= */
 .proker-container {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   grid-template-rows: repeat(2, 225px);
-  grid-gap: 1rem;
+  gap: 1.2rem; /* Gap digedein dikit biar lebih lega */
 }
 
-/* Base Style buat setiap box */
+/* =========================================
+   BASE STYLE (PROKER BOX)
+   ========================================= */
 .proker-box {
   position: relative;
   width: 100%;
   height: 100%;
-  border: solid 5px #304356;
-  border-radius: 25px;
+  background-color: rgba(26, 26, 26, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Border kaca halus */
+  border-radius: 15px; /* Lebih membulat selaras dengan cabinet */
   overflow: hidden;
   cursor: pointer;
-  background-color: #1a1a1a;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .proker-img {
   object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.proker-box:hover,
-.explore-box:hover {
-  transform: scale(0.98);
-  filter: drop-shadow(0 0 20px rgba(110, 146, 185, 0.8));
+/* HOVER EFFECT: Ngangkat ke atas, bukan mengecil */
+.proker-box:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(96, 165, 250, 0.2);
+  border-color: rgba(96, 165, 250, 0.5); /* Glow biru pinggirannya */
 }
+
 .proker-box:hover .proker-img {
-  transform: scale(1.08);
+  transform: scale(1.08); /* Gambar nge-zoom mulus */
 }
 
 /* Mapping Grid Area */
 .proker-div1 {
-  grid-area: 1 / 1 / 3 / 2; /* Full tinggi sebelah kiri */
+  grid-area: 1 / 1 / 3 / 2;
 }
 
-/* Overlay buat Div 1 (Latest) biar judul kebaca */
+/* Overlay biar judul kebaca jelas */
 .proker-overlay-latest {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent, transparent);
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.3) 50%, transparent 100%);
   display: flex;
   align-items: flex-end;
-  padding: 24px;
+  padding: 25px; /* Kasih padding dalam overlay */
 }
 
-/* --- EXPLORE BOX (DIV 5) --- */
+/* =========================================
+   EXPLORE BOX (DIV 5)
+   ========================================= */
 .explore-box {
-  grid-area: 2 / 3 / 3 / 4; /* Posisi kanan bawah */
+  grid-area: 2 / 3 / 3 / 4;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #e1e1e1;
+  color: #304356;
   text-align: center;
   position: relative;
-  border: solid 5px #304356;
-  border-radius: 25px;
+  background: rgba(48, 67, 86, 0.1);
+  /* Ganti solid border jadi dashed bercahaya biar elegan */
+  border: 2px dashed rgba(96, 165, 250, 0.4);
+  border-radius: 15px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .blur-bg {
-  filter: blur(10px);
-  transform: scale(1.1);
-  opacity: 0.5; /* Gelapin dikit biar icon stand out */
+  filter: blur(15px);
+  transform: scale(1.2);
+  opacity: 0.8;
+  transition: opacity 0.4s ease;
 }
 
 .explore-content {
@@ -79,39 +92,41 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-/* Styling Icon Kompas */
 .explore-icon {
-  /* Posisi awal tegak lurus atau miring dikit (bebas) */
   transform: rotate(-10deg);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #304356; /* Warna tetep putih */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Teks Explore */
 .explore-text {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #304356;
-  transition:
-    transform 0.3s ease,
-    color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* --- ANIMASI SAAT HOVER --- */
 .explore-box:hover .explore-icon {
-  /* Cuma muter 45 derajat pas di-hover */
   transform: scale(1.1) rotate(25deg);
 }
 
 .explore-box:hover .explore-text {
-  /* Teks cuma naik dikit biar dinamis */
-  transform: translateY(3px);
+  transform: translateY(5px);
 }
 
-/* --- MODAL SYSTEM --- */
+.explore-box:hover {
+  background: rgba(48, 67, 86, 0.3);
+  border-color: rgba(96, 165, 250, 0.8);
+  box-shadow: 0 10px 25px rgba(96, 165, 250, 0.2);
+}
+
+.explore-box:hover .blur-bg {
+  opacity: 0.3;
+}
+
+/* =========================================
+   MODAL SYSTEM
+   ========================================= */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -120,27 +135,26 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .modal-card {
   position: relative;
-  background: #18191b;
+  background: rgba(24, 25, 27, 0.95); /* Semi transparan */
   width: 100%;
   max-width: 800px;
   max-height: 90vh;
-  border-radius: 30px;
+  border-radius: 25px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow-y: auto;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  animation: popUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-close {
@@ -148,21 +162,24 @@
   top: 20px;
   right: 20px;
   z-index: 50;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-close:hover {
-  background: #ff4d4d;
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: rotate(90deg) scale(1.1); /* Efek putar pas dihover */
 }
 
 .modal-banner {
@@ -171,17 +188,16 @@
   height: 350px;
 }
 
-.modal-banner::after {
-  content: "";
+.modal-gradient-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, #18191b, transparent 60%);
+  background: linear-gradient(to top, rgba(24, 25, 27, 0.95), transparent 70%);
 }
 
 .modal-body {
-  padding: 0 40px 40px 40px;
+  padding: 0 45px 45px 45px;
   position: relative;
-  margin-top: -60px; /* Narik konten ke atas gambar dikit */
+  margin-top: -80px;
   z-index: 5;
 }
 
@@ -190,14 +206,26 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin-bottom: 15px;
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* --- MARKDOWN CONTENT STYLING --- */
+.modal-title {
+  color: white;
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+/* =========================================
+   MARKDOWN CONTENT STYLING
+   ========================================= */
 .markdown-content {
-  color: #e5e7eb;
+  color: #cbd5e1;
   line-height: 1.8;
   font-size: 1.05rem;
 }
@@ -206,7 +234,7 @@
 .markdown-content h2,
 .markdown-content h3 {
   color: #ffffff;
-  margin: 1.5rem 0 1rem 0;
+  margin: 2rem 0 1rem 0;
   font-weight: 700;
 }
 
@@ -215,152 +243,119 @@
 }
 
 .markdown-content img {
-  border-radius: 20px;
+  border-radius: 15px;
   margin: 2rem 0;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .markdown-content blockquote {
-  border-left: 4px solid #304356;
-  padding-left: 1.5rem;
+  border-left: 4px solid #60a5fa; /* Aksen biru */
+  background: rgba(96, 165, 250, 0.05);
+  padding: 1rem 1.5rem;
+  border-radius: 0 10px 10px 0;
   font-style: italic;
-  color: #9ca3af;
+  color: #94a3b8;
   margin: 2rem 0;
 }
 
-.markdown-content ul {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1.2rem;
-}
-
-/* Styling Modal List */
+/* =========================================
+   MODAL LIST ALL
+   ========================================= */
 .list-modal {
-  max-width: 600px; /* Lebih kecil dari modal detail */
+  max-width: 650px;
 }
 
 .list-header {
-  padding: 20px 25px;
+  padding: 25px 30px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #1f2023;
+  background: rgba(24, 25, 27, 0.95);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .list-title {
   color: white;
   margin: 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.list-close-btn {
-  background: none;
-  border: none;
-  color: #999;
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.list-close-btn:hover {
-  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 .list-content {
-  padding: 20px;
+  padding: 20px 30px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 15px;
 }
 
-/* Item di dalam list */
 .list-item {
   display: flex;
-  gap: 15px;
-  padding: 12px;
+  gap: 18px;
+  padding: 15px;
   background: rgba(255, 255, 255, 0.03);
-  border-radius: 18px;
+  border-radius: 15px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .list-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.03);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(96, 165, 250, 0.4);
+  transform: translateX(8px); /* Efek slide ke kanan ala menu premium */
+  box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.list-item-img-wrapper {
-  position: relative;
-  width: 90px;
-  height: 60px;
-  border-radius: 12px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.list-item-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-}
-
-.list-item-date {
-  font-size: 0.75rem;
-  color: #60a5fa; /* Biru muda */
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.list-item-title {
-  color: white;
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.3;
-}
-
-/* Container Video di Modal */
+/* =========================================
+   VIDEO MODAL & SCROLLBAR
+   ========================================= */
 .modal-video-container {
-  margin-top: 30px;
-  padding-top: 25px;
+  margin-top: 40px;
+  padding-top: 30px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.video-title {
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 15px;
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* Aspect Ratio 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
-  border-radius: 20px;
+  border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .video-wrapper iframe {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   border: none;
 }
 
-/* --- ANIMATIONS --- */
+.custom-scroll::-webkit-scrollbar {
+  width: 6px; /* Dibikin lebih tipis dikit */
+}
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(96, 165, 250, 0.3); /* Scrollbar dikasih aksen biru */
+  border-radius: 20px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(96, 165, 250, 0.6);
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -370,35 +365,62 @@
   }
 }
 
-@keyframes slideUp {
+@keyframes popUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
-/* --- RESPONSIVE --- */
+/* =========================================
+   RESPONSIVE DESIGN
+   ========================================= */
+@media (max-width: 1024px) {
+  .proker-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(3, 200px);
+  }
+  .proker-div1 {
+    grid-area: 1 / 1 / 2 / 3;
+  }
+  .explore-box {
+    grid-area: 3 / 2 / 4 / 3;
+  }
+}
+
 @media (max-width: 768px) {
   .proker-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-
   .proker-div1 {
     grid-area: auto;
-    height: 300px;
+    height: 280px; /* Ditinggiin dikit biar thumbnail lebih jelas */
   }
-
+  .proker-box,
   .explore-box {
     grid-area: auto;
     height: 200px;
   }
 
+  .modal-card {
+    border-radius: 20px;
+  }
+  .modal-banner {
+    height: 250px;
+  }
   .modal-body {
-    padding: 0 20px 20px 20px;
+    padding: 0 25px 25px 25px;
+    margin-top: -50px;
+  }
+  .modal-title {
+    font-size: 1.6rem;
+  }
+  .list-content {
+    padding: 15px;
   }
 }

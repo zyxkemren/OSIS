@@ -13,7 +13,6 @@ const getYouTubeID = (url: string) => {
   return match && match[2].length === 11 ? match[2] : null;
 };
 
-// Tambahkan type definition untuk props
 interface ProkerProps {
   items: any[];
   externalSelectedId?: number | null;
@@ -32,7 +31,6 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
       const found = items.find((item) => item.id === externalSelectedId);
       if (found) {
         setSelectedProker(found);
-        // Otomatis scroll ke section proker supaya modal terlihat jelas
         const element = document.querySelector(".proker");
         element?.scrollIntoView({ behavior: "smooth" });
       }
@@ -41,20 +39,24 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
 
   const closeDetail = () => {
     setSelectedProker(null);
-    if (onCloseModal) onCloseModal(); // Beritahu parent kalau sudah tutup
+    if (onCloseModal) onCloseModal();
   };
 
   return (
     <div className="proker">
-      <h2 className="event-name !text-[#304356] mb-10">Our Event</h2>
+      <h2 className="event-name !text-[#304356] mb-10 section-title">Program Kerja</h2>
 
       <div className="proker-container">
         {/* LATEST */}
         <div className="proker-box proker-div1" onClick={() => setSelectedProker(sorted[0])}>
-          <Image src={sorted[0].thumbnail} fill alt="latest" className="proker-img" />
-          <div className="proker-overlay-latest">
-            <div className="ministry">{sorted[0].title}</div>
-          </div>
+          {sorted[0] && (
+            <>
+              <Image src={sorted[0].thumbnail} fill alt="latest" className="proker-img" />
+              <div className="proker-overlay-latest">
+                <div className="ministry">{sorted[0].title}</div>
+              </div>
+            </>
+          )}
         </div>
 
         {/* NORMAL BOXES */}
@@ -70,7 +72,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
         {/* EXPLORE MORE */}
         <div className="explore-box" onClick={() => setIsListOpen(true)}>
           {sorted[4] && <Image src={sorted[4].thumbnail} fill alt="explore" className="proker-img blur-bg" />}
-          <div style={{ zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="explore-content">
             <MdOutlineExplore size={80} className="explore-icon" />
             <span className="explore-text">Explore More</span>
           </div>
@@ -87,14 +89,14 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
             </button>
             <div className="modal-banner">
               <Image src={selectedProker.thumbnail} fill alt="banner" className="proker-img" />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, #18191b, transparent)" }}></div>
+              <div className="modal-gradient-overlay"></div>
             </div>
             <div className="modal-body">
               <div className="modal-date">
                 <MdCalendarMonth />
                 <span>{new Date(selectedProker.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
               </div>
-              <h2 style={{ color: "white", fontSize: "2rem", marginBottom: "20px", fontWeight: "bold" }}>{selectedProker.title}</h2>
+              <h2 className="modal-title">{selectedProker.title}</h2>
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
               </div>
@@ -119,33 +121,33 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
       {isListOpen && (
         <div className="modal-overlay">
           <div className="modal-backdrop" onClick={() => setIsListOpen(false)}></div>
-          <div className="modal-card list-modal">
-            <div className="list-header">
-              <h3 className="list-title">Program Kerja</h3>
-              <button className="list-close-btn" onClick={() => setIsListOpen(false)}>
-                <BiX size={30} />
-              </button>
+          <div className="modal-card custom-scroll" style={{ maxWidth: "600px" }}>
+            <div style={{ padding: "20px", borderBottom: "1px solid #333", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <h3 style={{ color: "white", margin: 0 }}>Semua Proker</h3>
+              <BiX size={30} style={{ color: "white", cursor: "pointer" }} onClick={() => setIsListOpen(false)} />
             </div>
-            <div className="list-content custom-scroll">
+            <div style={{ padding: "20px" }}>
               {sorted.map((item) => (
                 <div
                   key={item.id}
-                  className="list-item"
                   onClick={() => {
                     setSelectedProker(item);
                     setIsListOpen(false);
                   }}
+                  style={{
+                    display: "flex",
+                    gap: "15px",
+                    marginBottom: "15px",
+                    cursor: "pointer",
+                    background: "#222",
+                    padding: "10px",
+                    borderRadius: "15px",
+                  }}
                 >
-                  <div className="list-item-img-wrapper">
-                    <Image src={item.thumbnail} fill alt="thumb" className="proker-img" />
+                  <div style={{ position: "relative", width: "80px", height: "50px", borderRadius: "8px", overflow: "hidden" }}>
+                    <Image src={item.thumbnail} fill alt="t" className="proker-img" />
                   </div>
-                  <div className="list-item-info">
-                    <span className="list-item-date">
-                      <MdCalendarMonth />
-                      <span>{new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
-                    </span>
-                    <h4 className="list-item-title">{item.title}</h4>
-                  </div>
+                  <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
                 </div>
               ))}
             </div>
