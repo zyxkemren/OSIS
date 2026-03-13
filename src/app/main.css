@@ -1,5 +1,4 @@
 body {
-  
 }
 
 .banner {
@@ -51,14 +50,9 @@ body {
   border-radius: 20px;
 }
 
-.event-name {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-}
-
 .btn-next {
   color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 2rem;
@@ -111,11 +105,6 @@ body {
   color: #18191b;
 }
 
-.sosmed.utama:hover {
-  background-color: transparent;
-  color: #e1e1e1;
-}
-
 .sosmed span {
   font-size: 1rem;
   font-weight: 600;
@@ -154,7 +143,7 @@ body {
 
 .sec3 {
   padding: 5vw 10vw;
-  display: flex; 
+  display: flex;
   flex-direction: column;
   gap: 2rem;
   background-image: radial-gradient(#969393 1px, transparent 1px);

@@ -27,12 +27,13 @@
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
-  transition: transform 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cabinet-bg-img {
   object-fit: cover;
   z-index: 1;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .cabinet-overlay {
@@ -44,6 +45,15 @@
   justify-content: center;
   padding: 15px;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+
+.cabinet-card:hover {
+  transform: scale(0.98);
+  filter: drop-shadow(0 0 20px rgba(110, 146, 185, 0.8));
+}
+
+.cabinet-card:hover .cabinet-bg-img {
+  transform: scale(1.08);
 }
 
 .ministry-tag {
@@ -87,7 +97,7 @@
 
 .member-card {
   background: rgba(255, 255, 255, 0.05);
-  padding: 20px 10px;
+  padding: 20px;
   border-radius: 20px;
   text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -95,12 +105,13 @@
 
 .member-photo-wrapper {
   position: relative;
-  width: 70px;
-  height: 70px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
   margin: 0 auto 12px;
-  border-radius: 50%;
+  border-radius: 20px;
   overflow: hidden;
   border: 2px solid #304356;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .member-photo {

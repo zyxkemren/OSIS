@@ -17,6 +17,8 @@
   cursor: pointer;
   background-color: #1a1a1a;
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
 }
 
 .proker-img {
@@ -24,7 +26,8 @@
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.proker-box:hover {
+.proker-box:hover,
+.explore-box:hover {
   transform: scale(0.98);
   filter: drop-shadow(0 0 20px rgba(110, 146, 185, 0.8));
 }
@@ -61,6 +64,7 @@
   border-radius: 25px;
   overflow: hidden;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .blur-bg {
@@ -90,14 +94,13 @@
 .explore-text {
   font-size: 1.2rem;
   font-weight: 600;
-  color: #304356; /* Warna putih agak abu biar kalem */
+  color: #304356;
   transition:
     transform 0.3s ease,
     color 0.3s ease;
 }
 
 /* --- ANIMASI SAAT HOVER --- */
-
 .explore-box:hover .explore-icon {
   /* Cuma muter 45 derajat pas di-hover */
   transform: scale(1.1) rotate(25deg);
@@ -286,7 +289,7 @@
 .list-item:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.1);
-  transform: translateX(5px);
+  transform: scale(1.03);
 }
 
 .list-item-img-wrapper {

@@ -1,18 +1,16 @@
 "use client";
 
 import { getData } from "@/lib/firebase/firebase";
-import { useState, useEffect } from "react";
-import { BiSolidRightArrow, BiSolidLeftArrow, BiX } from "react-icons/bi";
+import { useState, useEffect, useMemo } from "react"; // Tambah useMemo
 import { FaInstagram, FaYoutube } from "react-icons/fa6";
-import { MdOutlineExplore, MdCalendarMonth } from "react-icons/md";
-import ReactMarkdown from "react-markdown";
 import Navbar from "@/components/ui/navbar";
 import Image from "next/image";
 import "./main.css";
 import ProkerSection from "@/components/proker";
-import { Cabin } from "next/font/google";
 import CabinetSection from "@/components/cabinet";
+import HeroSection from "@/components/hero";
 
+// PINDAHKAN DATA KE ATAS TANPA 'EXPORT'
 const dummyProker = [
   {
     id: 1,
@@ -91,8 +89,8 @@ export const dummyCabinet = [
       { nama: "Shafa", jabatan: "Sekretaris 1", foto: "https://i.pravatar.cc/150?u=a3" },
       { nama: "Keysha", jabatan: "Sekretaris 2", foto: "https://i.pravatar.cc/150?u=a4" },
       { nama: "Raihan", jabatan: "Bendahara 1", foto: "https://i.pravatar.cc/150?u=a5" },
-      { nama: "Alya", jabatan: "Bendahara 2", foto: "https://i.pravatar.cc/150?u=a6" }
-    ]
+      { nama: "Alya", jabatan: "Bendahara 2", foto: "https://i.pravatar.cc/150?u=a6" },
+    ],
   },
   {
     id: "kemen-it",
@@ -103,8 +101,8 @@ export const dummyCabinet = [
       { nama: "Rafi", jabatan: "Menteri", foto: "https://i.pravatar.cc/150?u=i1" },
       { nama: "Arga", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=i2" },
       { nama: "Lutfi", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=i3" },
-      { nama: "Zahra", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=i4" }
-    ]
+      { nama: "Zahra", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=i4" },
+    ],
   },
   {
     id: "kemen-seni",
@@ -114,59 +112,60 @@ export const dummyCabinet = [
     anggota: [
       { nama: "Dimas", jabatan: "Menteri", foto: "https://i.pravatar.cc/150?u=s1" },
       { nama: "Gendis", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=s2" },
-      { nama: "Fauzan", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=s3" }
-    ]
-  }
+      { nama: "Fauzan", jabatan: "Staff", foto: "https://i.pravatar.cc/150?u=s3" },
+    ],
+  },
 ];
 
-const sortedProker = [...dummyProker].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const dummyHero = [
+  {
+    id: "hero-1",
+    prokerId: 1,
+    eventName: "Sanlat 2026",
+    tagline: "Our event",
+    banner: "./img/_MG_7205.jpg.jpeg",
+  },
+  {
+    id: "hero-2",
+    prokerId: 7,
+    eventName: "Albacadabra 2025",
+    tagline: "Our event",
+    banner: "./img/abcd25.png",
+  },
+];
 
 export default function HomePage() {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [isListModalOpen, setIsListModalOpen] = useState(false);
-  const [selectedProker, setSelectedProker] = useState<any>(null); // State buat detail proker
-
-  // Fungsi buka detail
-  const openDetail = (proker: any) => setSelectedProker(proker);
-  const closeDetail = () => setSelectedProker(null);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await getData("anggota");
-        setData(res);
-      } catch (e) {
-        console.error(e);
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
+  // Sorting proker menggunakan useMemo biar nggak re-run terus
+  const sortedProker = useMemo(() => {
+    return [...dummyProker].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, []);
 
-  // Fungsi Toggle Modal
-  const handleExploreMore = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const handleLearnMore = (id: number) => {
+    setSelectedId(id);
+  };
 
   useEffect(() => {
+    let isMounted = true;
     async function fetchData() {
       try {
         const res = await getData("anggota");
-        setData(res);
+        if (isMounted) setData(res);
       } catch (e) {
         console.error(e);
-        setError(true);
+        if (isMounted) setError(true);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     }
     fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading)
@@ -177,107 +176,56 @@ export default function HomePage() {
         <div></div>
       </div>
     );
-  if (error) return <h1>error bos</h1>;
 
-  if (loading)
-    return (
-      <div className="bouncing-loader">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    );
   if (error) return <h1>error bos</h1>;
 
   return (
     <main className="overflow-x-hidden">
-      <Navbar active={1} logo="OSIS AL Bayan" />
-      <div className="start w-full h-[100vh] flex flex-col items-start justify-between py-25">
-        <div className="banner">
-          <Image
-            src="/img/_MG_7205.jpg.jpeg" // Ganti dengan path gambarmu
-            alt="Albacadabra Background"
-            layout="fill"
-            objectFit="fit"
-            objectPosition="bottom"
-            unoptimized={true}
-            priority
-          />
-        </div>
-        <div className="start-arrow flex flex-row justify-between w-full px-[50px]">
-          <div className="btn-next left">
-            <BiSolidLeftArrow />
-          </div>
-          <div className="btn-next right">
-            <BiSolidRightArrow />
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-between w-full z-2 px-30">
-          <div className="flex flex-col justify-end gap-3">
-            <div className="flex flex-col">
-              <span className="text-gray-200">Our event</span>
-              <h2 className="event-name text-white text-[2rem] font-[100]">Sanlat 2026</h2>
-            </div>
-            <div className="bg-white w-full text-center px-full py-[10px] rounded-[50px] cursor-pointer min-w-[400px]">Learn more</div>
-          </div>
-          <div className="flex flex-col gap-2 justify-end">
-            <div className="flex flex-row items-center items-center justify-between drop-shadow-[0_0_20px_rgba(255,255,255,0.8)]">
-              <Image src="/img/osisalba.svg" alt="Logo" width={50} height={50} unoptimized={true} />
-              <Image src="/img/osis.svg" alt="Logo" width={35} height={35} unoptimized={true} />
-              <Image src="/img/alba.svg" alt="Logo" width={50} height={50} unoptimized={true} />
-            </div>
-            <p>SMA PU AL BAYAN CIBADAK</p>
-          </div>
-        </div>
-      </div>
-      <div className="relative z-1 w-full h-[200px] bg-gradient-to-t from-[#001f3f] to-transparent -mt-[280px]"></div>
-      <div className="flex flex-row justify-between bg-[#001f3f] w-full p-50 gap-[5vw]">
-        <div className="flex flex-col max-w-[60vw] gap-[25px]">
+      <Navbar active={1} logo="OSIS Al Bayan" />
+
+      <HeroSection items={dummyHero} onLearnMore={handleLearnMore} />
+
+      <div className="intro flex flex-col justify-between bg-[#001f3f] w-full py-[12rem] px-[15vw] gap-[2rem]">
+        <div className="flex flex-col text-center">
           <h1>Welcome to Arthawisesa</h1>
-          <p className="whitespace-pre-line">
-            {`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only
-            five centuries. but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-            release of Letraset sheets containing`}
-          </p>
         </div>
-        <div className="w-full max-w-[30vw] mx-auto p-4]">
-          <div className="relative aspect-video rounded-[25px] overflow-hidden drop-shadow-[0_0_40px_#ffffff59]">
-            <iframe
-              className="absolute top-0 left-0 w-full h-full border-none"
-              frameBorder={0}
-              src="https://www.youtube.com/embed/Y4mgpC_kj3M"
-              title="After Movie OSIS"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              style={{ border: "none" }}
-              allowFullScreen
-            ></iframe>
+        <div className="flex flex-col gap-[5rem]">
+          <p className="whitespace-pre-line text-center">
+            {`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\n\nIt has survived not only five centuries. but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing`}
+          </p>
+          <div className="w-full max-w-[40rem] w-[30vw] mx-auto p-4 text-center gap-[1rem] flex flex-col">
+            <div className="relative aspect-video rounded-[25px] overflow-hidden drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full border-none"
+                src="https://www.youtube.com/embed/Y4mgpC_kj3M?rel=0&controls=0&disablekb=1&autoplay=1&mute=1"
+                title="After Movie OSIS"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <p className="!text-[#b4b4b4]">🎥 After Movie Sanlat 2026</p>
           </div>
-          <p className="mt-4 text-center font-medium text-gray-700">🎥 After Movie Sanlat 2026</p>
         </div>
       </div>
-      <div className="w-full px-50 py-10 flex flex-col  bg-[#18191b]">
+      <div className="sosmed-container w-full px-[15rem] !py-[2.5rem] flex flex-col  bg-[#18191b]">
         <div className="w-full flex flex-row justify-center gap-[3vw]">
           <a href="https://www.instagram.com/osis.alba/" target="_blank" rel="noopener noreferrer" className="sosmed">
             <FaInstagram />
-            <span>Instagram OSIS</span>
+            <span>Instagram OSIS Albayan</span>
           </a>
           <a href="https://www.youtube.com/@osissmapualbayancibadak5627" target="_blank" rel="noopener noreferrer" className="sosmed utama">
             <FaYoutube />
-            <span>Youtube OSIS</span>
+            <span>Youtube OSIS Albayan</span>
           </a>
           <a href="https://www.instagram.com/mpk.alba/" target="_blank" rel="noopener noreferrer" className="sosmed">
             <FaInstagram />
-            <span>Instagram MPK</span>
+            <span>Instagram MPK Albayan</span>
           </a>
         </div>
       </div>
 
       <div className="sec3">
         <CabinetSection items={dummyCabinet} />
-
-        {/* PROKERRRR */}
-        <ProkerSection items={sortedProker} />
+        <ProkerSection items={sortedProker} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
       </div>
 
       <div className="footer">© Kementerian Informasi dan Teknologi 2026</div>

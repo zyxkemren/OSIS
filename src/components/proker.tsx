@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BiX } from "react-icons/bi";
 import { MdOutlineExplore, MdCalendarMonth } from "react-icons/md";
@@ -13,20 +13,43 @@ const getYouTubeID = (url: string) => {
   return match && match[2].length === 11 ? match[2] : null;
 };
 
-export default function ProkerSection({ items }: { items: any[] }) {
+// Tambahkan type definition untuk props
+interface ProkerProps {
+  items: any[];
+  externalSelectedId?: number | null;
+  onCloseModal?: () => void;
+}
+
+export default function ProkerSection({ items, externalSelectedId, onCloseModal }: ProkerProps) {
   const [selectedProker, setSelectedProker] = useState<any>(null);
   const [isListOpen, setIsListOpen] = useState(false);
 
   const sorted = [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  const closeDetail = () => setSelectedProker(null);
+  // LOGIC PENTING: Monitor kiriman ID dari Hero
+  useEffect(() => {
+    if (externalSelectedId) {
+      const found = items.find((item) => item.id === externalSelectedId);
+      if (found) {
+        setSelectedProker(found);
+        // Otomatis scroll ke section proker supaya modal terlihat jelas
+        const element = document.querySelector(".proker");
+        element?.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [externalSelectedId, items]);
+
+  const closeDetail = () => {
+    setSelectedProker(null);
+    if (onCloseModal) onCloseModal(); // Beritahu parent kalau sudah tutup
+  };
 
   return (
     <div className="proker">
       <h2 className="event-name !text-[#304356] mb-10">Our Event</h2>
 
       <div className="proker-container">
-        {/* DIV 1: LATEST */}
+        {/* LATEST */}
         <div className="proker-box proker-div1" onClick={() => setSelectedProker(sorted[0])}>
           <Image src={sorted[0].thumbnail} fill alt="latest" className="proker-img" />
           <div className="proker-overlay-latest">
@@ -34,24 +57,27 @@ export default function ProkerSection({ items }: { items: any[] }) {
           </div>
         </div>
 
-        {/* DIV 2, 3, 4: NORMAL (Data index 1, 2, 3) */}
-        {[1, 2, 3].map((i) => (
-          <div key={i} className="proker-box" onClick={() => setSelectedProker(sorted[i])}>
-            <Image src={sorted[i].thumbnail} fill alt="event" className="proker-img" />
-          </div>
-        ))}
+        {/* NORMAL BOXES */}
+        {[1, 2, 3].map(
+          (i) =>
+            sorted[i] && (
+              <div key={i} className="proker-box" onClick={() => setSelectedProker(sorted[i])}>
+                <Image src={sorted[i].thumbnail} fill alt="event" className="proker-img" />
+              </div>
+            ),
+        )}
 
-        {/* DIV 5: EXPLORE MORE (Pakai gambar index ke-4) */}
+        {/* EXPLORE MORE */}
         <div className="explore-box" onClick={() => setIsListOpen(true)}>
           {sorted[4] && <Image src={sorted[4].thumbnail} fill alt="explore" className="proker-img blur-bg" />}
           <div style={{ zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <MdOutlineExplore size={80} className="explore-icon"/>
-            <span className="explore-text">EXPLORE</span>
+            <MdOutlineExplore size={80} className="explore-icon" />
+            <span className="explore-text">Explore More</span>
           </div>
         </div>
       </div>
 
-      {/* --- MODAL DETAIL (Tetap Sama) --- */}
+      {/* MODAL DETAIL */}
       {selectedProker && (
         <div className="modal-overlay">
           <div className="modal-backdrop" onClick={closeDetail}></div>
@@ -69,19 +95,16 @@ export default function ProkerSection({ items }: { items: any[] }) {
                 <span>{new Date(selectedProker.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
               </div>
               <h2 style={{ color: "white", fontSize: "2rem", marginBottom: "20px", fontWeight: "bold" }}>{selectedProker.title}</h2>
-              {/* Di dalam Modal Detail, tepat di bawah .markdown-content */}
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
               </div>
 
-              {/* Section Video YouTube */}
               {selectedProker.youtube_link && (
                 <div className="modal-video-container">
                   <div className="video-wrapper">
                     <iframe
                       src={`https://www.youtube.com/embed/${getYouTubeID(selectedProker.youtube_link)}`}
                       title="YouTube video player"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     ></iframe>
                   </div>
@@ -92,19 +115,17 @@ export default function ProkerSection({ items }: { items: any[] }) {
         </div>
       )}
 
-      {/* --- MODAL LIST ALL (Sama seperti sebelumnya) --- */}
-      {/* --- MODAL LIST ALL --- */}
+      {/* MODAL LIST ALL */}
       {isListOpen && (
         <div className="modal-overlay">
           <div className="modal-backdrop" onClick={() => setIsListOpen(false)}></div>
           <div className="modal-card list-modal">
             <div className="list-header">
-              <h3 className="list-title">Semua Program Kerja</h3>
+              <h3 className="list-title">Program Kerja</h3>
               <button className="list-close-btn" onClick={() => setIsListOpen(false)}>
                 <BiX size={30} />
               </button>
             </div>
-
             <div className="list-content custom-scroll">
               {sorted.map((item) => (
                 <div
@@ -120,12 +141,8 @@ export default function ProkerSection({ items }: { items: any[] }) {
                   </div>
                   <div className="list-item-info">
                     <span className="list-item-date">
-                      <MdCalendarMonth size={14} />
-                      {new Date(item.date).toLocaleDateString("id-ID", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
+                      <MdCalendarMonth />
+                      <span>{new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
                     </span>
                     <h4 className="list-item-title">{item.title}</h4>
                   </div>
