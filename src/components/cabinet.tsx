@@ -56,7 +56,6 @@ export default function CabinetSection({ items }: { items: CabinetItem[] }) {
               <h2 className="modal-title">{selectedCabinet.title}</h2>
               <p className="modal-desc">{selectedCabinet.desc}</p>
 
-              <h3 className="member-heading">Struktur Organisasi</h3>
               <div className="members-grid">
                 {selectedCabinet.anggota.map((member, idx) => (
                   <div key={idx} className="member-card">
