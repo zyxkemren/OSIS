@@ -12,9 +12,6 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      // Supabase butuh format email.
-      // Trik: Kalau admin kamu cuma ngetik "admin", kita otomatis tambahin domain di belakangnya.
-      // Pastikan email ini SAMA dengan yang kamu daftarin di dashboard Supabase tadi ya!
       const email = username.includes("@") ? username : `${username}@osis.com`;
 
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -24,7 +21,6 @@ export default function LoginPage() {
 
       if (signInError) throw signInError;
 
-      // Kalau sukses, lempar ke dashboard
       router.push("/dashboard");
     } catch (err: any) {
       setError("Username atau password salah");
@@ -33,52 +29,50 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-gray-100 px-4 font-sans">
+      <div className="w-full max-w-md bg-[#18181b] border border-[#27272a] rounded-xl shadow-2xl p-8">
         
         {/* Header Section */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Login OSIS</h2>
-          <p className="text-gray-500 mt-2 text-sm">Masuk untuk mengakses dashboard</p>
+          <h1 className="text-2xl font-bold tracking-tight text-white">Login to Dashboard</h1>
+          <p className="text-sm text-gray-400 mt-2">Anomaly Network</p>
         </div>
+
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-6 bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-md text-center font-medium">
+            {error}
+          </div>
+        )}
 
         {/* Form Section */}
         <div className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Username atau Email
             </label>
             <input 
               type="text"
-              placeholder="Contoh: admin" 
               onChange={(e) => setUsername(e.target.value)} 
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-800 placeholder-gray-400"
+              className="w-full px-4 py-2.5 bg-[#27272a] border border-[#3f3f46] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label className="block text-sm font-medium text-gray-300 mb-2">
               Password
             </label>
             <input 
               type="password" 
-              placeholder="••••••••" 
               onChange={(e) => setPassword(e.target.value)} 
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-gray-800 placeholder-gray-400"
+              className="w-full px-4 py-2.5 bg-[#27272a] border border-[#3f3f46] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
             />
           </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center font-medium border border-red-100">
-              {error}
-            </div>
-          )}
 
           {/* Submit Button */}
           <button 
             onClick={handleLogin}
-            className="w-full mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 focus:ring-4 focus:ring-blue-200 focus:outline-none"
+            className="w-full py-2.5 px-4 bg-white hover:bg-gray-200 text-black font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#18181b] focus:ring-white mt-4"
           >
             Login
           </button>
