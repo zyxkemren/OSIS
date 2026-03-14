@@ -48,7 +48,7 @@ export default function ProkerPage() {
     setIsUploading(true);
     try {
       // 1. Kompres gambar (Logic lama kamu yang dipertahankan)
-      const options = { maxSizeMB: 0.1, maxWidthOrHeight: 800, useWebWorker: true, fileType: "image/webp" };
+      const options = { maxSizeMB: 0.5, maxWidthOrHeight: 1280, useWebWorker: true, fileType: "image/webp" };
       const compressedFile = await imageCompression(file, options);
 
       // 2. Bikin nama file unik biar tidak saling tindih
