@@ -173,9 +173,6 @@
 }
 
 @media (max-width: 586px) {
-  .nav-arrows-container {
-    padding: 0 1rem;
-  }
 
   .nav-btn .nav-icon {
     font-size: 1.25rem;
