@@ -5,7 +5,7 @@ import Sidebar from "@/components/ui/sidebar";
 import { DescriptionText } from "@/components/ui/text";
 import { EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
-import { getData, addData } from "@/lib/firebase/firebase";
+import { getData, addData } from "@/lib/supabase";
 import { FaPlus, FaTrash, FaYoutube } from "react-icons/fa6";
 
 // Fungsi sakti untuk ambil ID Youtube

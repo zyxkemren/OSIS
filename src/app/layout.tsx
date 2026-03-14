@@ -8,7 +8,7 @@ import {
   Inter, // Tambah Inter
 } from "next/font/google";
 import "./globals.css";
-import { getData } from "@/lib/firebase/firebase";
+import { getData } from "@/lib/supabase";
 import { Analytics } from "@vercel/analytics/react";
 
 // Konfigurasi Fonts

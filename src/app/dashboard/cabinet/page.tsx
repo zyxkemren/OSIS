@@ -5,7 +5,7 @@ import Sidebar from "@/components/ui/sidebar";
 import { DescriptionText } from "@/components/ui/text";
 import { EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
-import { getData, addData } from "@/lib/firebase/firebase";
+import { getData, addData, supabase } from "@/lib/supabase";
 import { FaPlus, FaTrash, FaUserPlus, FaCamera } from "react-icons/fa6";
 import imageCompression from "browser-image-compression";
 
@@ -41,13 +41,14 @@ export default function CabinetPage() {
     }
   };
 
-  // --- Image Optimization Logic ---
+  // --- Image Optimization Logic to Supabase ---
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file || !uploadTarget) return;
 
     setIsUploading(true);
     try {
+      // 1. Kompresi WebP
       const options = {
         maxSizeMB: 0.1, // 100KB
         maxWidthOrHeight: 512,
@@ -56,19 +57,38 @@ export default function CabinetPage() {
       };
 
       const compressedFile = await imageCompression(file, options);
-      const base64 = await imageCompression.getDataUrlFromFile(compressedFile);
 
+      // 2. Tentukan nama file unik dan folder tujuan (cabinet)
+      const fileName = `cabinet_${Date.now()}_${Math.random().toString(36).substring(7)}.webp`;
+
+      // 3. Upload file yang sudah dikompres ke Supabase
+      const { error } = await supabase.storage.from("uploads").upload(`cabinet/${fileName}`, compressedFile, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: "image/webp",
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // 4. Ambil Public URL dari Supabase
+      const { data: publicUrlData } = supabase.storage.from("uploads").getPublicUrl(`cabinet/${fileName}`);
+
+      const imageUrl = publicUrlData.publicUrl;
+
+      // 5. Update State Cabinet (Logic asli kamu, ganti base64 dengan imageUrl)
       const { kemenId, angId } = uploadTarget;
 
       const updatedCabinet = cabinet.map((k) => {
         if (k.id === kemenId) {
           if (angId) {
             // Jika ada angId, berarti update foto anggota
-            const newAnggota = k.anggota.map((a: any) => (a.id === angId ? { ...a, foto: base64 } : a));
+            const newAnggota = k.anggota.map((a: any) => (a.id === angId ? { ...a, foto: imageUrl } : a));
             return { ...k, anggota: newAnggota };
           } else {
             // Jika tidak ada angId, berarti update thumbnail kementerian
-            return { ...k, thumbnail: base64 };
+            return { ...k, thumbnail: imageUrl };
           }
         }
         return k;
@@ -78,8 +98,8 @@ export default function CabinetPage() {
       setVisible(true);
     } catch (error) {
       console.error("Upload failed:", error);
+      alert("Gagal mengupload gambar. Coba lagi ya!");
     } finally {
-      setIsUploading(false);
       setIsUploading(false);
       setUploadTarget(null);
       if (event.target) event.target.value = ""; // reset input

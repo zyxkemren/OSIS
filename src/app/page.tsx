@@ -1,6 +1,6 @@
 "use client";
 
-import { getData } from "@/lib/firebase/firebase";
+import { getData } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 import { FaInstagram, FaYoutube } from "react-icons/fa6";
 import Navbar from "@/components/ui/navbar";

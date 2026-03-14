@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "@/components/ui/sidebar";
 import { DescriptionText } from "@/components/ui/text";
-import { StatsDisplay, StatsTotal, Leaderboard } from "@/components/ui/stats";
+import { supabase } from "@/lib/supabase";
 import { Form, EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
-import { getData, addData } from "@/lib/firebase/firebase";
+import { getData, addData } from "@/lib/supabase";
 import { FaCamera } from "react-icons/fa6";
 import imageCompression from "browser-image-compression"; // Pastikan sudah install ini
 
@@ -64,23 +64,46 @@ export default function Home() {
 
     setIsUploading(true);
     try {
+      // 1. Kompresi Gambar
       const optionsCompression = {
-        maxSizeMB: 0.1, // Max 100KB agar Firestore enteng
+        maxSizeMB: 0.1, // Max 100KB
         maxWidthOrHeight: 512,
         useWebWorker: true,
         fileType: "image/webp", // Force convert ke WebP
       };
 
       const compressedFile = await imageCompression(file, optionsCompression);
-      const base64 = await imageCompression.getDataUrlFromFile(compressedFile);
 
-      const updatedData = { ...formData, url: base64 };
+      // 2. Bikin nama file unik
+      const fileName = `icon_${Date.now()}_${Math.random().toString(36).substring(7)}.webp`;
+
+      // 3. Upload file ke Supabase (masuk ke folder 'general')
+      const { error } = await supabase.storage.from("uploads").upload(`general/${fileName}`, compressedFile, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: "image/webp",
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // 4. Ambil Public URL dari gambar
+      const { data: publicUrlData } = supabase.storage.from("uploads").getPublicUrl(`general/${fileName}`);
+
+      const imageUrl = publicUrlData.publicUrl;
+
+      // 5. Update state dengan URL dari Supabase
+      const updatedData = { ...formData, url: imageUrl };
       setFormData(updatedData);
       setVisible(true);
     } catch (error) {
-      console.error("Optimization failed:", error);
+      console.error("Upload failed:", error);
+      alert("Gagal mengupload ikon. Coba lagi ya!");
     } finally {
       setIsUploading(false);
+      // Reset input file biar bisa upload file yang sama 2x kalau butuh
+      if (event.target) event.target.value = "";
     }
   };
 

@@ -5,7 +5,7 @@ import Sidebar from "@/components/ui/sidebar";
 import { DescriptionText } from "@/components/ui/text";
 import { EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
-import { getData, addData } from "@/lib/firebase/firebase";
+import { getData, addData, supabase } from "@/lib/supabase";
 import { FaPlus, FaTrash, FaCamera, FaYoutube } from "react-icons/fa6";
 import imageCompression from "browser-image-compression";
 
@@ -47,21 +47,43 @@ export default function ProkerPage() {
 
     setIsUploading(true);
     try {
+      // 1. Kompres gambar (Logic lama kamu yang dipertahankan)
       const options = { maxSizeMB: 0.1, maxWidthOrHeight: 800, useWebWorker: true, fileType: "image/webp" };
       const compressedFile = await imageCompression(file, options);
-      const base64 = await imageCompression.getDataUrlFromFile(compressedFile);
 
-      setProkers(prokers.map((p) => (p.id === uploadTargetId ? { ...p, thumbnail: base64 } : p)));
+      // 2. Bikin nama file unik biar tidak saling tindih
+      const fileName = `proker_${Date.now()}_${Math.random().toString(36).substring(7)}.webp`;
+
+      // 3. Upload file yang sudah dikompres ke Supabase Storage
+      // Kita masukkan ke dalam folder 'prokers' di dalam bucket 'uploads'
+      const { data, error } = await supabase.storage.from("uploads").upload(`prokers/${fileName}`, compressedFile, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: "image/webp",
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      // 4. Ambil Public URL dari gambar yang baru diupload
+      const { data: publicUrlData } = supabase.storage.from("uploads").getPublicUrl(`prokers/${fileName}`);
+
+      const imageUrl = publicUrlData.publicUrl;
+
+      // 5. Simpan URL tersebut ke dalam state prokers (menggantikan Base64)
+      setProkers(prokers.map((p) => (p.id === uploadTargetId ? { ...p, thumbnail: imageUrl } : p)));
       setVisible(true);
     } catch (e) {
-      console.error(e);
+      console.error("Upload error:", e);
+      alert("Gagal mengupload gambar. Pastikan bucket 'uploads' sudah public.");
     } finally {
       setIsUploading(false);
       setUploadTargetId(null);
       if (event.target) event.target.value = "";
     }
   };
-
+  
   const addProker = () => {
     // LOGIKA AUTO-ID: Cari angka ID tertinggi lalu tambah 1
     // Jika data kosong, mulai dari 0
@@ -233,7 +255,15 @@ export default function ProkerPage() {
                 <label className="form-label">KONTEN (MARKDOWN)</label>
                 <textarea
                   className="form-input custom-scroll"
-                  style={{ minHeight: "250px", width: "100%", fontFamily: "monospace", fontSize: "13px", lineHeight: "1.6", paddingTop: "15px", resize: "vertical" }}
+                  style={{
+                    minHeight: "250px",
+                    width: "100%",
+                    fontFamily: "monospace",
+                    fontSize: "13px",
+                    lineHeight: "1.6",
+                    paddingTop: "15px",
+                    resize: "vertical",
+                  }}
                   value={proker.content}
                   onChange={(e) => updateProker(proker.id, "content", e.target.value)}
                   placeholder="### Contoh Markdown..."

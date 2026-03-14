@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "@/lib/firebase/firebase";
+import { supabase } from "@/lib/supabase"; // Sesuaikan path-nya!
 import { Provider } from "@/components/ui/provider";
 import { SidebarProvider } from "@/components/sidebar-provider";
 import "./dashboard.css";
@@ -14,16 +13,36 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      if (!user) {
+    // 1. Cek session saat pertama kali load
+    const checkUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) {
+        router.push("/login");
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkUser();
+
+    // 2. Pasang listener kalau sewaktu-waktu session habis/logout
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
         router.push("/login");
       } else {
         setLoading(false);
       }
     });
 
-    return () => unsub();
-  }, []);
+    // Cleanup listener
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router]);
 
   if (loading) {
     return (

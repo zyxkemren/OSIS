@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useSidebar } from "../sidebar-provider";
 import { LuMenu } from "react-icons/lu";
 import { useRouter } from "next/navigation";
-import { getData } from "@/lib/firebase/firebase";
+import { getData } from "@/lib/supabase";
 import "./sidebar.css";
 
 export default function Sidebar({ active }) {

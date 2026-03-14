@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { BiX } from "react-icons/bi";
-import { getData } from "@/lib/firebase/firebase";
+import { getData } from "@/lib/supabase";
 import "./cabinet.css";
 
 interface Member {
