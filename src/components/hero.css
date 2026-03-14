@@ -177,12 +177,6 @@
     padding: 0 1rem;
   }
 
-  /* Tombol lebih compact di layar super kecil */
-  .nav-btn {
-    height: 40px;
-    width: 40px;
-  }
-
   .nav-btn .nav-icon {
     font-size: 1.25rem;
   }
