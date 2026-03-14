@@ -85,7 +85,7 @@ export default function ContentDashboard() {
   return (
     <div className="main-container">
       <span className="background"></span>
-      <Sidebar active={2} />
+      <Sidebar active={1} />
 
       <div className="home">
         <h1>Content Management</h1>
@@ -95,7 +95,12 @@ export default function ContentDashboard() {
           <EditTitle>Intro & Video Section</EditTitle>
           <EditForm>
             <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-              <input className="form-input" placeholder="Page Title" value={formData.title} onChange={(e) => updateField("title", e.target.value)} />
+              <input
+                className="form-input"
+                placeholder="Page Title"
+                value={formData.title || ""}
+                onChange={(e) => updateField("title", e.target.value)}
+              />
               <textarea
                 className="form-input"
                 style={{ minHeight: "100px" }}
@@ -110,14 +115,14 @@ export default function ContentDashboard() {
                     className="form-input"
                     style={{ paddingLeft: "35px" }}
                     placeholder="YouTube Video ID / Link"
-                    value={formData.video_id}
+                    value={formData.video_id || ""}
                     onChange={(e) => updateField("video_id", e.target.value)}
                   />
                 </div>
                 <input
                   className="form-input"
                   placeholder="Video Caption"
-                  value={formData.video_caption}
+                  value={formData.video_caption || ""}
                   onChange={(e) => updateField("video_caption", e.target.value)}
                 />
               </div>
