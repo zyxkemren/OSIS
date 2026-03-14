@@ -35,7 +35,6 @@ export default function LoginPage() {
         {/* Header Section */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold tracking-tight text-white">Login to Dashboard</h1>
-          <p className="text-sm text-gray-400 mt-2">Anomaly Network</p>
         </div>
 
         {/* Error Alert */}
