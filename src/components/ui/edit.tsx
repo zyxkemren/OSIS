@@ -16,19 +16,13 @@ import {
   ColorPickerValueSwatch,
 } from "./color-picker";
 import { AddButton, ResetButton } from "./button";
-import { FaChevronUp, FaChevronDown, FaTrash, FaCamera, FaGripVertical } from "react-icons/fa6";
-import { TbBoxMargin, TbCopy, TbCopyCheck } from "react-icons/tb";
+import { FaChevronUp, FaChevronDown, FaTrash, FaCamera } from "react-icons/fa6";
+import { TbCopy, TbCopyCheck } from "react-icons/tb";
 import "./edit.css";
-import axios from "axios";
 import { discordWebhook, sendDiscordMessage } from "@/lib/discord";
 import { hexToColor } from "@/lib/convertColor";
-import getData from "@/lib/getData";
 import { MdClose } from "react-icons/md";
 import { delImage } from "@/lib/delImage";
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragOverlay } from "@dnd-kit/core";
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 const customStyles = {
   placeholder: (base) => ({
