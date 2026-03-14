@@ -29,7 +29,7 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
           if (entry.isIntersecting) {
             if (entry.target.id === "home") setActiveSection(1);
             if (entry.target.id === "cabinet") setActiveSection(2);
-            if (entry.target.id === "event") setActiveSection(3);
+            if (entry.target.id === "proker") setActiveSection(3);
           }
         });
       },
@@ -37,7 +37,7 @@ export default function Navbar({ active, logo }: { active: number; logo: string 
     );
 
     // Daftarin ID mana aja yang mau dipantau
-    const sections = ["home", "cabinet", "event"];
+    const sections = ["home", "cabinet", "proker"];
     sections.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);

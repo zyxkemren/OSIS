@@ -222,13 +222,16 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+@media (max-width: 1440px) {
+  .sosmed-section {
+    padding: 2.5rem 5rem !important;
+  }
+}
+
 /* Responsive adjustments untuk section dengan padding besar */
 @media (max-width: 1024px) {
   .intro-section {
     padding: 8rem 10vw;
-  }
-  .sosmed-section {
-    padding: 2.5rem 5rem !important;
   }
 }
 

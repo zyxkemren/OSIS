@@ -89,6 +89,10 @@
    ========================================= */
 
 /* Container full layar buat desktop */
+/* =========================================
+   NAVIGASI SLIDER (EDGE-HOVER PREMIUM)
+   ========================================= */
+
 .nav-arrows-container {
   position: absolute;
   top: 0;
@@ -97,8 +101,8 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center; /* Ikon di tengah vertikal */
-  z-index: 20; /* Pastikan ini DI BAWAH z-index tombol 'Learn More' (hero-btm) */
+  align-items: center;
+  z-index: 20;
   pointer-events: none;
 }
 
@@ -106,7 +110,7 @@
   pointer-events: auto;
   cursor: pointer;
   height: 100%;
-  width: 12vw; /* Lebar area klik, pakai persentase biar dinamis */
+  width: 12vw;
   max-width: 120px;
   display: flex;
   align-items: center;
@@ -115,10 +119,38 @@
   border-radius: 0;
   border: none;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 1; 
+  opacity: 1;
+  /* Tambahkan ini */
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
-/* Tampilan awal ikon (agak redup & mengecil) */
+/* Layer Gradient Terpisah untuk Transisi Halus */
+.nav-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0; /* Sembunyi di awal */
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1; /* Di bawah icon */
+  pointer-events: none;
+}
+
+/* Gradient spesifik tiap tombol */
+.nav-btn:first-child::before {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+}
+
+.nav-btn:last-child::before {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+}
+
+/* Hover State: Munculkan Gradient */
+.nav-btn:hover::before {
+  opacity: 1;
+}
+
 .nav-btn .nav-icon {
   color: rgba(255, 255, 255, 0.4);
   font-size: 3rem;
@@ -127,21 +159,11 @@
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3));
 }
 
-/* --- EFEK HOVER MAGIC (DESKTOP) --- */
-.nav-btn:first-child:hover {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-}
-
-.nav-btn:last-child:hover {
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-}
-
 .nav-btn:hover .nav-icon {
   color: #ffffff;
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
 }
 
-/* Ikon nge-slide tipis pas kursor masuk */
 .nav-btn:first-child:hover .nav-icon {
   transform: scale(1.1) translateX(-8px);
 }
@@ -150,56 +172,11 @@
   transform: scale(1.1) translateX(8px);
 }
 
-/* =========================================
-   RESPONSIVE (TABLET & MOBILE)
-   ========================================= */
-
-@media (max-width: 876px) {
-  /* Ubah layout container biar ga nutupin seluruh layar */
-  .nav-arrows-container {
-    padding: 0 1.5rem;
-    height: 0; /* Ilangin full height */
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  /* Tombol berubah jadi pill kaca (Glassmorphism) */
-  .nav-btn {
-    height: 50px;
-    width: 50px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Matiin efek background gradien hover di HP (karena pakai tap/sentuh) */
-  .nav-btn:first-child:hover,
-  .nav-btn:last-child:hover {
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  /* Ukuran ikon disesuaikan buat HP */
-  .nav-btn .nav-icon {
-    color: white;
-    font-size: 1.5rem;
-    transform: scale(1);
-    filter: none;
-  }
-
-  /* Matiin efek slide tipis di HP biar kerasa lebih native */
-  .nav-btn:first-child:hover .nav-icon,
-  .nav-btn:last-child:hover .nav-icon {
-    transform: scale(1);
-  }
-}
-
 @media (max-width: 586px) {
   .nav-arrows-container {
     padding: 0 1rem;
   }
-  
+
   /* Tombol lebih compact di layar super kecil */
   .nav-btn {
     height: 40px;

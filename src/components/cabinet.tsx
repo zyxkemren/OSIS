@@ -3,9 +3,11 @@
 import { useState } from "react";
 import Image from "next/image";
 import { BiX } from "react-icons/bi";
+import { getData } from "@/lib/firebase/firebase";
 import "./cabinet.css";
 
 interface Member {
+  id?: string; 
   nama: string;
   jabatan: string;
   foto: string;
