@@ -70,7 +70,6 @@ export default function HomePage() {
     );
   if (error) return <h1>error bos</h1>;
 
-  // LOGIC HERO: Prioritaskan hero_items dari Content Dashboard, jika kosong pakai proker terbaru
   const heroDisplayItems = (() => {
     // 1. Cek apakah ada settingan hero di dashboard
     if (data.content?.hero_items && data.content.hero_items.length > 0) {
@@ -84,13 +83,13 @@ export default function HomePage() {
               id: linkedProker.id,
               prokerId: linkedProker.id,
               eventName: linkedProker.title,
-              tagline: "Our Event", // Bisa dicustom atau ambil dari field lain
+              tagline: "Our Event", 
               banner: linkedProker.thumbnail,
             };
           }
           return null;
         })
-        .filter(Boolean); // Hapus item jika ID tidak ditemukan
+        .filter(Boolean);
     }
 
     // 2. Jika settingan dashboard kosong, pakai 2 proker terbaru otomatis
@@ -111,11 +110,11 @@ export default function HomePage() {
 
       <section className="intro-section" id="home">
         <div className="intro-header">
-          <h1>{data.content?.title || "Welcome to Arthawisesa"}</h1>
+          <h1>{data.content?.title || "title blm diatur"}</h1>
         </div>
 
         <div className="intro-content">
-          <p className="intro-desc">{data.content?.description || "Deskripsi belum diatur."}</p>
+          <p className="intro-desc">{data.content?.description || "deskripsi belum diatur."}</p>
 
           <div className="video-section">
             <div className="video-box">
