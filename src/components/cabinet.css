@@ -246,7 +246,7 @@
 }
 
 .member-photo {
-  object-fit: fill;
+  object-fit: cover;
   border-radius: 10px;
 }
 
