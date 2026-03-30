@@ -12,9 +12,6 @@ export default function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      // Supabase butuh format email.
-      // Trik: Kalau admin kamu cuma ngetik "admin", kita otomatis tambahin domain di belakangnya.
-      // Pastikan email ini SAMA dengan yang kamu daftarin di dashboard Supabase tadi ya!
       const email = username.includes("@") ? username : `${username}@osis.com`;
 
       const { data, error: signInError } = await supabase.auth.signInWithPassword({
@@ -24,7 +21,6 @@ export default function LoginPage() {
 
       if (signInError) throw signInError;
 
-      // Kalau sukses, lempar ke dashboard
       router.push("/dashboard");
     } catch (err: any) {
       setError("Username atau password salah");
@@ -33,11 +29,55 @@ export default function LoginPage() {
   };
 
   return (
-    <div>
-      <input placeholder="username atau email" onChange={(e) => setUsername(e.target.value)} />
-      <input type="password" placeholder="password" onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
-      {error && <p>{error}</p>}
+    <div className="min-h-screen flex items-center justify-center bg-[#09090b] text-gray-100 px-4 font-sans">
+      <div className="w-full max-w-md bg-[#18181b] border border-[#27272a] rounded-xl shadow-2xl p-8">
+        
+        {/* Header Section */}
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold tracking-tight text-white">Login to Dashboard</h1>
+        </div>
+
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-6 bg-red-500/10 border border-red-500/50 text-red-500 text-sm p-3 rounded-md text-center font-medium">
+            {error}
+          </div>
+        )}
+
+        {/* Form Section */}
+        <div className="space-y-5">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Username atau Email
+            </label>
+            <input 
+              type="text"
+              onChange={(e) => setUsername(e.target.value)} 
+              className="w-full px-4 py-2.5 bg-[#27272a] border border-[#3f3f46] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Password
+            </label>
+            <input 
+              type="password" 
+              onChange={(e) => setPassword(e.target.value)} 
+              className="w-full px-4 py-2.5 bg-[#27272a] border border-[#3f3f46] rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white transition-all"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button 
+            onClick={handleLogin}
+            className="w-full py-2.5 px-4 bg-white hover:bg-gray-200 text-black font-semibold rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#18181b] focus:ring-white mt-4"
+          >
+            Login
+          </button>
+        </div>
+
+      </div>
     </div>
   );
 }
