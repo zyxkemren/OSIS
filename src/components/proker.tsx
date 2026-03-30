@@ -147,7 +147,13 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                   <div style={{ position: "relative", width: "80px", height: "50px", borderRadius: "8px", overflow: "hidden" }}>
                     <Image src={item.thumbnail} fill alt="t" className="proker-img" />
                   </div>
-                  <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
+                  <div className="flex flex-col gap-2 justify-center h-full">
+                    <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
+                    <div className="modal-date">
+                      <MdCalendarMonth />
+                      <span>{new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
