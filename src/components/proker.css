@@ -353,6 +353,75 @@
   background-color: rgba(96, 165, 250, 0.6);
 }
 
+
+/* --- MARKDOWN FIXES --- */
+.markdown-content {
+  line-height: 1.6;
+  color: #fff; /* Sesuaikan dengan warna teks modalmu */
+  font-size: 1rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1rem;
+}
+
+.markdown-content h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1.5rem 0 1rem;
+}
+
+.markdown-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 1.25rem 0 0.75rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1rem 0 0.5rem;
+}
+
+/* Mengembalikan Bullet Points & Nomor yang hilang */
+.markdown-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-content strong {
+  font-weight: bold;
+}
+
+.markdown-content em {
+  font-style: italic;
+}
+
+.markdown-content a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid #555;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #aaa;
+  font-style: italic;
+}
+
+
 /* =========================================
    ANIMATIONS
    ========================================= */
