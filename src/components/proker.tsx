@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BiX } from "react-icons/bi";
-import { MdOutlineExplore, MdCalendarMonth } from "react-icons/md";
+import { MdOutlineExplore } from "react-icons/md"; // MdCalendarMonth dihapus
 import ReactMarkdown from "react-markdown";
 import "./proker.css";
 
@@ -23,6 +23,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
   const [selectedProker, setSelectedProker] = useState<any>(null);
   const [isListOpen, setIsListOpen] = useState(false);
 
+  // Sorting tetap berdasarkan tanggal dari data agar urutannya tidak berantakan
   const sorted = [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // LOGIC PENTING: Monitor kiriman ID dari Hero
@@ -92,12 +93,11 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
               <div className="modal-gradient-overlay"></div>
             </div>
             <div className="modal-body">
-              <div className="modal-date">
-                <MdCalendarMonth />
-                <span>{new Date(selectedProker.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
-              </div>
-              <h2 className="modal-title">{selectedProker.title}</h2>
-              <p>{selectedProker.ketua_pelaksana}</p>
+              <h2 className="modal-title" style={{ marginTop: "10px" }}>{selectedProker.title}</h2>
+              <p style={{ color: "#aaa", marginBottom: "20px", fontSize: "0.95rem" }}>
+                <span style={{ color: "#fff" }}>{selectedProker.ketua_pelaksana}</span>
+              </p>
+              
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
               </div>
@@ -148,12 +148,11 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                   <div style={{ position: "relative", width: "80px", height: "50px", borderRadius: "8px", overflow: "hidden" }}>
                     <Image src={item.thumbnail} fill alt="t" className="proker-img" />
                   </div>
-                  <div className="flex flex-col gap-2 justify-center h-full">
+                  <div className="flex flex-col gap-1 justify-center h-full">
                     <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
-                    <div className="modal-date">
-                      <MdCalendarMonth />
-                      <span>{new Date(item.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
-                    </div>
+                    <span style={{ color: "#aaa", fontSize: "0.85rem" }}>
+                      {item.ketua_pelaksana}
+                    </span>
                   </div>
                 </div>
               ))}
