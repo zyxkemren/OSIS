@@ -97,6 +97,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                 <span>{new Date(selectedProker.date).toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" })}</span>
               </div>
               <h2 className="modal-title">{selectedProker.title}</h2>
+              <p>{selectedProker.ketua_pelaksana}</p>
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
               </div>
