@@ -93,11 +93,13 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
               <div className="modal-gradient-overlay"></div>
             </div>
             <div className="modal-body">
-              <h2 className="modal-title" style={{ marginTop: "10px" }}>{selectedProker.title}</h2>
+              <h2 className="modal-title" style={{ marginTop: "10px" }}>
+                {selectedProker.title}
+              </h2>
               <p style={{ color: "#aaa", marginBottom: "20px", fontSize: "0.95rem" }}>
-                <span style={{ color: "#fff" }}>{selectedProker.ketua_pelaksana}</span>
+                <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{selectedProker.ketua_pelaksana}</span>
               </p>
-              
+
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
               </div>
@@ -150,9 +152,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                   </div>
                   <div className="flex flex-col gap-1 justify-center h-full">
                     <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
-                    <span style={{ color: "#aaa", fontSize: "0.85rem" }}>
-                      {item.ketua_pelaksana}
-                    </span>
+                    <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{item.ketua_pelaksana}</span>
                   </div>
                 </div>
               ))}
