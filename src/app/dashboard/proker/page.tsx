@@ -7,6 +7,7 @@ import { EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
 import { getData, addData, supabase } from "@/lib/supabase";
 import { FaPlus, FaTrash, FaCamera, FaYoutube } from "react-icons/fa6";
+import { EditSlider } from "@/components/ui/edit";
 import imageCompression from "browser-image-compression";
 
 export default function ProkerPage() {
@@ -15,6 +16,7 @@ export default function ProkerPage() {
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadTargetId, setUploadTargetId] = useState<number | string | null>(null);
+  const [quality, setQuality] = useState(0.1);
 
   const fetchData = async () => {
     try {
@@ -48,7 +50,7 @@ export default function ProkerPage() {
     setIsUploading(true);
     try {
       // 1. Kompres gambar (Logic lama kamu yang dipertahankan)
-      const options = { maxSizeMB: 0.5, maxWidthOrHeight: 1280, useWebWorker: true, fileType: "image/webp" };
+      const options = { maxSizeMB: quality, maxWidthOrHeight: 1280, useWebWorker: true, fileType: "image/webp" };
       const compressedFile = await imageCompression(file, options);
 
       // 2. Bikin nama file unik biar tidak saling tindih
@@ -83,7 +85,7 @@ export default function ProkerPage() {
       if (event.target) event.target.value = "";
     }
   };
-  
+
   const addProker = () => {
     // LOGIKA AUTO-ID: Cari angka ID tertinggi lalu tambah 1
     // Jika data kosong, mulai dari 0
@@ -118,6 +120,12 @@ export default function ProkerPage() {
       <div className="home">
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", marginBottom: "20px", gap: "15px" }}>
           <h1 style={{ margin: 0 }}>Program Kerja</h1>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", minWidth: "250px" }}>
+            <label className="form-label" style={{ marginBottom: 0, whiteSpace: "nowrap" }}>
+              QUALITY: <span style={{ color: "#5865f2" }}>{quality} MB</span>
+            </label>
+            <EditSlider min={0.02} max={1.0} step={0.02} defaultValue={quality} unit="MB" onChange={(val) => setQuality(val)} />
+          </div>
           <button
             onClick={addProker}
             className="form-input"

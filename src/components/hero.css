@@ -111,7 +111,7 @@
   cursor: pointer;
   height: 100%;
   width: 12vw;
-  max-width: 120px;
+  max-width: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,11 +139,11 @@
 
 /* Gradient spesifik tiap tombol */
 .nav-btn:first-child::before {
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, transparent 80%);
 }
 
 .nav-btn:last-child::before {
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.6) 0%, transparent 80%);
 }
 
 /* Hover State: Munculkan Gradient */
@@ -213,7 +213,7 @@
 }
 
 .tagline-text {
-  color: #e5e7eb; /* text-gray-200 */
+  color: #e5e7eb; 
   letter-spacing: 0.1em;
   font-size: 0.875rem;
   font-weight: 600;
@@ -222,7 +222,8 @@
 .btn-learn {
   background-color: white;
   color: black;
-  width: 100%; /* Sekarang 100% dari lebar tulisan event */
+  width: 100%; 
+  max-width: 400px;
   text-align: center;
   padding: 12px 2.5rem;
   border-radius: 50px;

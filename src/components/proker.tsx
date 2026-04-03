@@ -27,8 +27,10 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
   const sorted = [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   // LOGIC PENTING: Monitor kiriman ID dari Hero
+  // LOGIC PENTING: Monitor kiriman ID dari Hero
   useEffect(() => {
-    if (externalSelectedId) {
+    // Cek secara eksplisit apakah nilai tersebut bukan null atau undefined
+    if (externalSelectedId !== null && externalSelectedId !== undefined) {
       const found = items.find((item) => item.id === externalSelectedId);
       if (found) {
         setSelectedProker(found);
