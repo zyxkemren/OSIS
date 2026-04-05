@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Sidebar from "@/components/ui/sidebar";
 import { DescriptionText } from "@/components/ui/text";
-import { EditContainer, EditTitle, EditForm } from "@/components/ui/edit";
+import { EditContainer, EditTitle, EditForm, EditSlider } from "@/components/ui/edit";
 import { ActionBar } from "@/components/ui/actionbar";
 import { getData, addData, supabase } from "@/lib/supabase";
 import { FaPlus, FaTrash, FaUserPlus, FaCamera } from "react-icons/fa6";
@@ -14,6 +14,7 @@ export default function CabinetPage() {
   const [visible, setVisible] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [quality, setQuality] = useState(0.1);
 
   // State untuk melacak target upload mana yang sedang aktif
   const [uploadTarget, setUploadTarget] = useState<{ kemenId: string; angId?: string } | null>(null);
@@ -50,8 +51,8 @@ export default function CabinetPage() {
     try {
       // 1. Kompresi WebP
       const options = {
-        maxSizeMB: 0.1, // 100KB
-        maxWidthOrHeight: 512,
+        maxSizeMB: quality, // 100KB
+        maxWidthOrHeight: 1280,
         useWebWorker: true,
         fileType: "image/webp",
       };
@@ -157,6 +158,12 @@ export default function CabinetPage() {
       <div className="home">
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
           <h1>Cabinet Manager</h1>
+          <div style={{ display: "flex", flexDirection: "column", gap: "10px", minWidth: "250px" }}>
+            <label className="form-label" style={{ marginBottom: 0, whiteSpace: "nowrap" }}>
+              QUALITY: <span style={{ color: "#5865f2" }}>{quality} MB</span>
+            </label>
+            <EditSlider min={0.02} max={1.0} step={0.02} defaultValue={quality} unit="MB" onChange={(val) => setQuality(val)} />
+          </div>
           <button
             onClick={addKementerian}
             className="form-input"

@@ -23,13 +23,9 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
   const [selectedProker, setSelectedProker] = useState<any>(null);
   const [isListOpen, setIsListOpen] = useState(false);
 
-  // Sorting tetap berdasarkan tanggal dari data agar urutannya tidak berantakan
   const sorted = [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
-  // LOGIC PENTING: Monitor kiriman ID dari Hero
-  // LOGIC PENTING: Monitor kiriman ID dari Hero
   useEffect(() => {
-    // Cek secara eksplisit apakah nilai tersebut bukan null atau undefined
     if (externalSelectedId !== null && externalSelectedId !== undefined) {
       const found = items.find((item) => item.id === externalSelectedId);
       if (found) {
