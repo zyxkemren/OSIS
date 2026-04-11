@@ -54,8 +54,8 @@ export async function generateMetadata(): Promise<Metadata> {
       icon: [{ url: "/img/osisalba.svg", type: "image/svg+xml" }],
     },
     openGraph: {
-      title: siteData?.data?.server_name ?? "OSIS AL BAYAN - Official Website",
-      description: siteData?.data?.website_description ?? "Official Website",
+      title: siteData?.data?.server_name ?? "OSIS SMA Al Bayan",
+      description: siteData?.data?.website_description ?? "Website resmi OSIS SMA Al Bayan. Wadah aspirasi, informasi kegiatan siswa, dan dokumentasi program kerja inspiratif demi mewujudkan sekolah yang aktif dan berprestasi.",
       images: [
         {
           url: siteData?.data?.website_image ?? "/img/thumbnail.png",
