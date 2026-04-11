@@ -53,6 +53,18 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: [{ url: "/img/osisalba.svg", type: "image/svg+xml" }],
     },
+    openGraph: {
+      title: siteData?.data?.server_name ?? "OSIS AL BAYAN - Official Website",
+      description: siteData?.data?.website_description ?? "Official Website",
+      images: [
+        {
+          url: siteData?.data?.website_image ?? "/img/thumbnail.png",
+          width: 1200,
+          height: 630,
+          alt: siteData?.data?.server_name ?? "OSIS AL BAYAN - Official Website",
+        },
+      ],
+    },
   };
 }
 
