@@ -164,6 +164,11 @@
   filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
 }
 
+.nav-btn:active .nav-icon {
+  transform: scale(0.95) !important;
+  transition: all 0.1s ease-in !important; 
+}
+
 .nav-btn:first-child:hover .nav-icon {
   transform: scale(1.1) translateX(-8px);
 }
@@ -234,11 +239,15 @@
   z-index: 10;
   border: none;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .btn-learn:hover {
   background-color: #e5e7eb;
+}
+
+.btn-learn:active {
+  transform: scale(0.95);
 }
 
 .hero-logo.desktop {

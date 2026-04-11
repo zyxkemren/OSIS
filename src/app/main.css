@@ -139,12 +139,13 @@ body {
 .intro-content {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 5rem;
 }
 
 .intro-desc {
   white-space: pre-line;
   text-align: center;
+  font-size: 1.2rem;
 }
 
 /* --- VIDEO SECTION --- */

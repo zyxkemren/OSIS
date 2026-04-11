@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { BiX } from "react-icons/bi";
-import { MdOutlineExplore } from "react-icons/md"; // MdCalendarMonth dihapus
+import { MdOutlineExplore } from "react-icons/md";
 import ReactMarkdown from "react-markdown";
 import "./proker.css";
 
@@ -22,6 +22,9 @@ interface ProkerProps {
 export default function ProkerSection({ items, externalSelectedId, onCloseModal }: ProkerProps) {
   const [selectedProker, setSelectedProker] = useState<any>(null);
   const [isListOpen, setIsListOpen] = useState(false);
+
+  // Path ke gambar cadangan
+  const fallbackImage = "/img/coming.webp";
 
   const sorted = [...items].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -50,7 +53,13 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
         <div className="proker-box proker-div1" onClick={() => setSelectedProker(sorted[0])}>
           {sorted[0] && (
             <>
-              <Image src={sorted[0].thumbnail} fill alt="latest" className="proker-img" />
+              <Image 
+                src={sorted[0].thumbnail || fallbackImage} 
+                fill 
+                alt="latest" 
+                unoptimized 
+                className="proker-img" 
+              />
               <div className="proker-overlay-latest">
                 <div className="ministry">{sorted[0].title}</div>
               </div>
@@ -63,14 +72,28 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
           (i) =>
             sorted[i] && (
               <div key={i} className="proker-box" onClick={() => setSelectedProker(sorted[i])}>
-                <Image src={sorted[i].thumbnail} fill alt="event" className="proker-img" />
+                <Image 
+                  src={sorted[i].thumbnail || fallbackImage} 
+                  fill 
+                  alt="event" 
+                  unoptimized 
+                  className="proker-img" 
+                />
               </div>
             ),
         )}
 
         {/* EXPLORE MORE */}
         <div className="explore-box" onClick={() => setIsListOpen(true)}>
-          {sorted[4] && <Image src={sorted[4].thumbnail} fill alt="explore" className="proker-img blur-bg" />}
+          {sorted[4] && (
+            <Image 
+              src={sorted[4].thumbnail || fallbackImage} 
+              fill 
+              alt="explore" 
+              unoptimized 
+              className="proker-img blur-bg" 
+            />
+          )}
           <div className="explore-content">
             <MdOutlineExplore size={80} className="explore-icon" />
             <span className="explore-text">Explore More</span>
@@ -87,7 +110,13 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
               <BiX size={30} />
             </button>
             <div className="modal-banner">
-              <Image src={selectedProker.thumbnail} fill alt="banner" className="proker-img" />
+              <Image 
+                src={selectedProker.thumbnail || fallbackImage} 
+                fill 
+                alt="banner" 
+                unoptimized 
+                className="proker-img" 
+              />
               <div className="modal-gradient-overlay"></div>
             </div>
             <div className="modal-body">
@@ -146,7 +175,13 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                   }}
                 >
                   <div style={{ position: "relative", width: "80px", height: "50px", borderRadius: "8px", overflow: "hidden" }}>
-                    <Image src={item.thumbnail} fill alt="t" className="proker-img" />
+                    <Image 
+                      src={item.thumbnail || fallbackImage} 
+                      fill 
+                      alt="t" 
+                      unoptimized 
+                      className="proker-img" 
+                    />
                   </div>
                   <div className="flex flex-col gap-1 justify-center h-full">
                     <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>

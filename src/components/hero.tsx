@@ -40,9 +40,9 @@ export default function HeroSection({ items, onLearnMore }: any) {
 
       <div className="hero-logo hero-logo-mobile">
         <div className="hero-logo-container">
-          <Image src="/img/osisalba.svg" alt="Logo" width={50} height={50} />
-          <Image src="/img/osis.svg" alt="Logo" width={35} height={35} />
-          <Image src="/img/alba.svg" alt="Logo" width={50} height={50} />
+          <Image src="/img/osisalba.svg" alt="Logo" width={50} unoptimized height={50} />
+          <Image src="/img/osis.png" alt="Logo" width={35} unoptimized height={35} />
+          <Image src="/img/alba.svg" alt="Logo" width={50} unoptimized height={50} />
         </div>
         <p className="cibadak school-name-text">SMA PU AL BAYAN CIBADAK</p>
       </div>
@@ -110,9 +110,9 @@ export default function HeroSection({ items, onLearnMore }: any) {
 
         <div className="hero-logo desktop">
           <div className="hero-logo-container">
-            <Image src="/img/osisalba.svg" alt="Logo" width={50} height={50} />
-            <Image src="/img/osis.svg" alt="Logo" width={35} height={35} />
-            <Image src="/img/alba.svg" alt="Logo" width={50} height={50} />
+            <Image src="/img/osisalba.svg" alt="Logo" width={50} unoptimized height={50} />
+            <Image src="/img/osis.png" alt="Logo" width={35} unoptimized height={35} />
+            <Image src="/img/alba.svg" alt="Logo" width={50} unoptimized height={50} />
           </div>
           <p className="school-name-text">SMA PU AL BAYAN CIBADAK</p>
         </div>

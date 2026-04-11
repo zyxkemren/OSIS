@@ -1185,7 +1185,7 @@ function Form({ formData: initialFormData, options, onChange }) {
                     onChange={(e) => handleInputChange(input.id, e.target.value)}
                     rows={input.rows || 4}
                     cols={input.cols || 50}
-                    maxLength={256}
+                    maxLength={1024}
                   />
                 ) : input.type === "select" ? (
                   <Select
@@ -1286,7 +1286,7 @@ function Form({ formData: initialFormData, options, onChange }) {
                     onChange={(e) => handleInputChange(input.id, e.target.value)}
                     rows={input.rows || 4}
                     cols={input.cols || 50}
-                    maxLength={256}
+                    maxLength={1024}
                   />
                 ) : input.type === "category" ? (
                   <div key={input.id}>

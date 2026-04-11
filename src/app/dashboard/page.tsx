@@ -17,6 +17,7 @@ const options = [
     label: "website description",
     placeholder: "Adalah website...",
     type: "textarea",
+    max: 1024,
   },
 ];
 
