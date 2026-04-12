@@ -48,20 +48,20 @@ const lexend = Lexend({
 export async function generateMetadata(): Promise<Metadata> {
   const siteData: any = await getData("general");
   return {
-    title: siteData?.data?.website_name ?? "OSIS AL BAYAN - Official Website",
-    description: siteData?.data?.website_description ?? "Official Website",
+    title: siteData?.website_title ?? "OSIS AL BAYAN - Official Website",
+    description: siteData?.website_description ?? "Official Website",
     icons: {
-      icon: [{ url: siteData?.data?.url ?? "/img/osisalba.svg", type: "image/svg+xml" }],
+      icon: [{ url: siteData?.url ?? "/img/osisalba.svg", type: "image/svg+xml" }],
     },
     openGraph: {
-      title: siteData?.data?.website_name ?? "OSIS SMA Al Bayan",
-      description: siteData?.data?.website_description ?? "Website resmi OSIS SMA Al Bayan. Wadah aspirasi, informasi kegiatan siswa, dan dokumentasi program kerja inspiratif demi mewujudkan sekolah yang aktif dan berprestasi.",
+      title: siteData?.website_title ?? "OSIS SMA Al Bayan",
+      description: siteData?.website_description ?? "Website resmi OSIS SMA Al Bayan. Wadah aspirasi, informasi kegiatan siswa, dan dokumentasi program kerja inspiratif demi mewujudkan sekolah yang aktif dan berprestasi.",
       images: [
         {
-          url: siteData?.data?.website_image ?? "/img/thumbnail.png",
+          url: siteData?.website_image ?? "/img/thumbnail.png",
           width: 1200,
           height: 630,
-          alt: siteData?.data?.website_name ?? "OSIS AL BAYAN - Official Website",
+          alt: siteData?.website_title ?? "OSIS AL BAYAN - Official Website",
         },
       ],
     },
