@@ -10,6 +10,7 @@ import {
 import "./globals.css";
 import { getData } from "@/lib/supabase";
 import { Analytics } from "@vercel/analytics/react";
+export const revalidate = 60;
 
 // Konfigurasi Fonts
 const inter = Inter({
