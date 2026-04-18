@@ -133,13 +133,13 @@ export default function HomePage() {
       {/* Sosmed, Cabinet, and Proker Sections... */}
       <section className="sosmed-section">
         <div className="sosmed-wrapper">
-          <a href={data.general?.instagram_osis || "#"} target="_blank" rel="noopener noreferrer" className="sosmed">
+          <a href={data.general?.instagram_osis || "https://www.instagram.com/osis.alba/"} target="_blank" rel="noopener noreferrer" className="sosmed">
             <FaInstagram /> <span>Instagram OSIS Albayan</span>
           </a>
-          <a href={data.general?.youtube_channel || "#"} target="_blank" rel="noopener noreferrer" className="sosmed utama">
+          <a href={data.general?.youtube_channel || "https://www.youtube.com/@osissmapualbayancibadak5627"} target="_blank" rel="noopener noreferrer" className="sosmed utama">
             <FaYoutube /> <span>Youtube OSIS Albayan</span>
           </a>
-          <a href={data.general?.instagram_mpk || "#"} target="_blank" rel="noopener noreferrer" className="sosmed">
+          <a href={data.general?.instagram_mpk || "https://www.instagram.com/mpk.alba/"} target="_blank" rel="noopener noreferrer" className="sosmed">
             <FaInstagram /> <span>Instagram MPK Albayan</span>
           </a>
         </div>

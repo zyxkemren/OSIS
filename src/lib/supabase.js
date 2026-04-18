@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Masukkan URL dan Key kamu di sini
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = "https://lbldvehebgtdpggepnvs.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxibGR2ZWhlYmd0ZHBnZ2VwbnZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0NTY0MjAsImV4cCI6MjA4OTAzMjQyMH0.xyhMnKSXguVODzwFq8yIKl73ofNhjMd-RvyhAaercMY";
 
 // Inisialisasi Supabase (pengganti app Firebase)
 export const supabase = createClient(supabaseUrl, supabaseKey);
