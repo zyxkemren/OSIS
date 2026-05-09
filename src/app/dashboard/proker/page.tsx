@@ -183,8 +183,8 @@ export default function ProkerPage() {
             </div>
 
             {/* List Proker di dalam Divisi */}
-            {items.map((proker) => (
-              <EditContainer key={proker.id} style={{ marginBottom: "20px" }}>
+            {(items as any).map((proker) => (
+              <EditContainer key={proker.id}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "20px", gap: "10px" }}>
                   <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
                     <EditTitle>{proker.title || "Judul Proker"}</EditTitle>
