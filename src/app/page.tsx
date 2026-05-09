@@ -156,15 +156,11 @@ export default function HomePage() {
       </section>
 
       <section id="cabinet" className="sec3 !py-[5rem] !px-0">
-        <CabinetSection
-          items={data.cabinet}
-          allProkers={data.prokers} 
-          onSelectProker={handleLearnMore} 
-        />
+        <CabinetSection items={data.cabinet} allProkers={data.prokers} onSelectProker={handleLearnMore} />
       </section>
 
       <section id="proker" className="sec3 !pt-0 !pb-[5rem]">
-        <ProkerSection items={data.prokers} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
+        <ProkerSection items={data.prokers} cabinetItems={data.cabinet} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
       </section>
 
       <footer className="footer">© {data.general?.footer_text || `Kementerian Informasi dan Teknologi ${new Date().getFullYear()}`}</footer>

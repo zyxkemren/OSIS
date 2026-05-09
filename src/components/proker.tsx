@@ -15,18 +15,17 @@ const getYouTubeID = (url: string) => {
 
 interface ProkerProps {
   items: any[];
-  externalSelectedId?: number | string | null; // disesuaikan bisa string juga
+  externalSelectedId?: number | string | null;
   onCloseModal?: () => void;
+  cabinetItems?: any[]; // <--- TAMBAHAN: Menerima data kabinet untuk mencari foto ketua
 }
 
-export default function ProkerSection({ items, externalSelectedId, onCloseModal }: ProkerProps) {
+export default function ProkerSection({ items, externalSelectedId, onCloseModal, cabinetItems = [] }: ProkerProps) {
   const [selectedProker, setSelectedProker] = useState<any>(null);
   const [isListOpen, setIsListOpen] = useState(false);
 
-  // Path ke gambar cadangan
   const fallbackImage = "/img/coming.webp";
 
-  // Antisipasi undefined date dari data supabasemu
   const sorted = [...items].sort((a, b) => new Date(b.date || 0).getTime() - new Date(a.date || 0).getTime());
 
   useEffect(() => {
@@ -43,6 +42,18 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
   const closeDetail = () => {
     setSelectedProker(null);
     if (onCloseModal) onCloseModal();
+  };
+
+  // HELPER: Mencari data lengkap anggota (termasuk foto) berdasarkan nama ketua pelaksana
+  const getKetuaData = (namaKetua: string) => {
+    if (!namaKetua || !cabinetItems) return null;
+    for (const kemen of cabinetItems) {
+      if (kemen.anggota) {
+        const found = kemen.anggota.find((ang: any) => ang.nama.toLowerCase().trim() === namaKetua.toLowerCase().trim());
+        if (found) return found;
+      }
+    }
+    return null;
   };
 
   return (
@@ -82,7 +93,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
         </div>
       </div>
 
-      {/* MODAL DETAIL */}
+      {/* MODAL DETAIL PROKER */}
       {selectedProker && (
         <div className="modal-overlay">
           <div className="modal-backdrop" onClick={closeDetail}></div>
@@ -94,13 +105,85 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
               <Image src={selectedProker.thumbnail || fallbackImage} fill alt="banner" unoptimized className="proker-img" />
               <div className="modal-gradient-overlay"></div>
             </div>
+
             <div className="modal-body">
-              <h2 className="modal-title" style={{ marginTop: "10px" }}>
-                {selectedProker.title}
-              </h2>
-              <p style={{ color: "#aaa", marginBottom: "20px", fontSize: "0.95rem" }}>
-                <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{selectedProker.ketua_pelaksana}</span>
-              </p>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginTop: "20px",
+                  marginBottom: "30px",
+                  borderBottom: "1px solid rgba(255,255,255,0.1)",
+                  paddingBottom: "20px",
+                  flexWrap: "wrap",
+                }}
+              >
+                <div>
+                  <h2 className="modal-title" style={{ marginTop: "10px" }}>
+                    {selectedProker.title}
+                  </h2>
+                  <p style={{ color: "#aaa", marginBottom: "20px", fontSize: "0.95rem" }}>
+                    <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{selectedProker.divisi}</span>
+                  </p>
+                </div>
+                {/* Container Profil Ketua Pelaksana */}
+                {(() => {
+                  const ketuaData = getKetuaData(selectedProker.ketua_pelaksana);
+                  return (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "12px",
+                        background: "rgba(255,255,255,0.03)",
+                        padding: "6px 16px 6px 6px",
+                        borderRadius: "50px",
+                        border: "1px solid rgba(255,255,255,0.08)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: "relative",
+                          width: "40px",
+                          height: "40px",
+                          borderRadius: "50%",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {ketuaData?.foto ? (
+                          <Image src={ketuaData.foto} fill alt="ketua" style={{ objectFit: "cover" }} />
+                        ) : (
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              background: "#444",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              fontSize: "16px",
+                            }}
+                          >
+                            👤
+                          </div>
+                        )}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <span
+                          style={{ fontSize: "0.65rem", color: "#94a3b8", textTransform: "uppercase", fontWeight: "600", letterSpacing: "0.5px" }}
+                        >
+                          Ketua Pelaksana
+                        </span>
+                        <span style={{ fontSize: "0.9rem", color: "white", fontWeight: "700" }}>
+                          {selectedProker.ketua_pelaksana || "Belum Ditentukan"}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+              {/* ------------------------------------------- */}
 
               <div className="markdown-content">
                 <ReactMarkdown>{selectedProker.content}</ReactMarkdown>
@@ -154,7 +237,7 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal 
                   </div>
                   <div className="flex flex-col gap-1 justify-center h-full">
                     <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
-                    <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{item.ketua_pelaksana}</span>
+                    <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{item.divisi}</span>
                   </div>
                 </div>
               ))}
