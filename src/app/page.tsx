@@ -4,10 +4,10 @@ import { getData } from "@/lib/supabase";
 import { useState, useEffect } from "react";
 import { FaInstagram, FaYoutube } from "react-icons/fa6";
 import Navbar from "@/components/ui/navbar";
-import "./main.css";
 import ProkerSection from "@/components/proker";
 import CabinetSection from "@/components/cabinet";
 import HeroSection from "@/components/hero";
+import "./main.css";
 
 export default function HomePage() {
   const [data, setData] = useState({
@@ -83,7 +83,7 @@ export default function HomePage() {
               id: linkedProker.id,
               prokerId: linkedProker.id,
               eventName: linkedProker.title,
-              tagline: "Our Event", 
+              tagline: "Our Event",
               banner: linkedProker.thumbnail,
             };
           }
@@ -133,10 +133,20 @@ export default function HomePage() {
       {/* Sosmed, Cabinet, and Proker Sections... */}
       <section className="sosmed-section">
         <div className="sosmed-wrapper">
-          <a href={data.general?.instagram_osis || "https://www.instagram.com/osis.alba/"} target="_blank" rel="noopener noreferrer" className="sosmed">
+          <a
+            href={data.general?.instagram_osis || "https://www.instagram.com/osis.alba/"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sosmed"
+          >
             <FaInstagram /> <span>Instagram OSIS Albayan</span>
           </a>
-          <a href={data.general?.youtube_channel || "https://www.youtube.com/@osissmapualbayancibadak5627"} target="_blank" rel="noopener noreferrer" className="sosmed utama">
+          <a
+            href={data.general?.youtube_channel || "https://www.youtube.com/@osissmapualbayancibadak5627"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sosmed utama"
+          >
             <FaYoutube /> <span>Youtube OSIS Albayan</span>
           </a>
           <a href={data.general?.instagram_mpk || "https://www.instagram.com/mpk.alba/"} target="_blank" rel="noopener noreferrer" className="sosmed">
@@ -146,7 +156,11 @@ export default function HomePage() {
       </section>
 
       <section id="cabinet" className="sec3 !py-[5rem] !px-0">
-        <CabinetSection items={data.cabinet} />
+        <CabinetSection
+          items={data.cabinet}
+          allProkers={data.prokers} 
+          onSelectProker={handleLearnMore} 
+        />
       </section>
 
       <section id="proker" className="sec3 !pt-0 !pb-[5rem]">

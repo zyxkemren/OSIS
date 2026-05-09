@@ -159,7 +159,7 @@ export default function CabinetPage() {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
           <h1>Cabinet Manager</h1>
           <div style={{ display: "flex", flexDirection: "column", gap: "10px", minWidth: "250px" }}>
-            <label className="form-label" style={{ marginBottom: 0, whiteSpace: "nowrap" }}>
+            <label className="form-label uppercase" style={{ marginBottom: 0, whiteSpace: "nowrap" }}>
               QUALITY: <span style={{ color: "#5865f2" }}>{quality} MB</span>
             </label>
             <EditSlider min={0.02} max={1.0} step={0.02} defaultValue={quality} unit="MB" onChange={(val) => setQuality(val)} />
@@ -189,42 +189,56 @@ export default function CabinetPage() {
             </div>
 
             <EditForm>
-              <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: "20px" }}>
+              <div className="flex flex-col lg:flex-row gap-8">
                 {/* Thumbnail Kementerian */}
-                <div>
-                  <label className="form-label">FOTO PERKEMENTERIAN</label>
+                <div className="flex flex-col gap-2 w-full lg:w-[400px] shrink-0">
+                  <label className="form-label uppercase tracking-wider">Foto Kementerian</label>
                   <div
-                    className="upload-box"
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      borderRadius: "12px",
-                      border: kemen.thumbnail ? "none" : "2px dashed #444",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      cursor: "pointer",
-                      backgroundImage: kemen.thumbnail ? `url(${kemen.thumbnail})` : "none",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      backgroundColor: "rgba(255,255,255,0.02)",
-                    }}
                     onClick={() => triggerUpload(kemen.id)}
+                    className={`relative group cursor-pointer overflow-hidden rounded-xl transition-all duration-300 aspect-video flex items-center justify-center ${
+                      kemen.thumbnail ? "border-2 border-blue-500" : "border-2 border-dashed border-gray-600 hover:border-gray-400 bg-white/5"
+                    }`}
                   >
-                    {!kemen.thumbnail && <FaCamera size={24} style={{ color: "#444" }} />}
+                    {kemen.thumbnail ? (
+                      <>
+                        <div
+                          className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                          style={{ backgroundImage: `url(${kemen.thumbnail})` }}
+                        />
+                        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-sm">
+                          <div className="flex flex-col items-center gap-2">
+                            <FaCamera size={24} className="text-white" />
+                            <span className="text-xs text-white font-bold tracking-widest">GANTI FOTO</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center gap-3">
+                        <FaCamera size={32} className="text-gray-500 group-hover:text-blue-400 transition-colors" />
+                        <span className="text-xs text-gray-500 font-medium group-hover:text-blue-400 tracking-wider">UPLOAD FOTO</span>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                  <div>
-                    <label className="form-label">NAMA</label>
-                    <input className="form-input" value={kemen.title} onChange={(e) => updateKemen(kemen.id, "title", e.target.value)} />
+                {/* Text Inputs */}
+                <div className="flex flex-col gap-5 flex-1 w-full">
+                  <div className="flex flex-col gap-2">
+                    <label className="form-label uppercase">Nama Kementerian</label>
+                    <input
+                      type="text"
+                      className="form-input w-full "
+                      placeholder="Contoh: Kementerian Ristek..."
+                      value={kemen.title}
+                      onChange={(e) => updateKemen(kemen.id, "title", e.target.value)}
+                    />
                   </div>
-                  <div>
-                    <label className="form-label">DESKRIPSI</label>
+
+                  <div className="flex flex-col gap-2 h-full">
+                    <label className="form-label uppercase">Deskripsi</label>
                     <textarea
-                      className="form-input"
-                      style={{ minHeight: "65px" }}
+                      className="form-input w-full h-full min-h-[120px] resize-y !p-[15px]"
+                      placeholder="Berikan deskripsi singkat kementerian..."
                       value={kemen.desc}
                       onChange={(e) => updateKemen(kemen.id, "desc", e.target.value)}
                     />
@@ -235,7 +249,7 @@ export default function CabinetPage() {
               {/* DAFTAR ANGGOTA */}
               <div style={{ marginTop: "25px", borderTop: "1px solid #333", paddingTop: "20px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
-                  <label className="form-label">DAFTAR ANGGOTA</label>
+                  <label className="form-label uppercase">DAFTAR ANGGOTA</label>
                   <button
                     onClick={() => addAnggota(kemen.id)}
                     style={{
@@ -261,19 +275,22 @@ export default function CabinetPage() {
                       key={ang.id}
                       style={{
                         display: "flex",
-                        gap: "15px",
-                        alignItems: "center",
-                        background: "rgba(255,255,255,0.02)",
-                        padding: "10px",
-                        borderRadius: "10px",
+                        gap: "1rem",
+                        alignItems: "flex-start", // Berubah ke start agar input tinggi tidak masalah
+                        background: "rgba(255, 255, 255, 0.03)",
+                        padding: "1.25rem",
+                        borderRadius: "12px",
+                        border: "1px solid rgba(255, 255, 255, 0.05)",
+                        transition: "all 0.2s ease",
                       }}
+                      className="group hover:bg-[rgba(255,255,255,0.06)]"
                     >
                       {/* Foto Anggota */}
                       <div
                         style={{
                           width: "50px",
                           height: "50px",
-                          borderRadius: "50%",
+                          borderRadius: "20%",
                           border: ang.foto ? "none" : "1px dashed #555",
                           flexShrink: 0,
                           cursor: "pointer",
@@ -289,28 +306,47 @@ export default function CabinetPage() {
                         {!ang.foto && <FaCamera size={14} style={{ color: "#555" }} />}
                       </div>
 
-                      <div style={{ flex: 1, display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                        <input
-                          className="form-input"
-                          style={{ fontSize: "13px" }}
-                          placeholder="nama (huruf kecil semua)"
-                          value={ang.nama}
-                          onChange={(e) => updateAnggota(kemen.id, ang.id, "nama", e.target.value)}
-                        />
-                        <input
-                          className="form-input"
-                          style={{ fontSize: "13px" }}
-                          placeholder="jabatan (huruf kecil semua)"
-                          value={ang.jabatan}
-                          onChange={(e) => updateAnggota(kemen.id, ang.id, "jabatan", e.target.value)}
-                        />
+                      {/* Container Input - Menggunakan Grid agar lebih rapi */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
+                        <div className="flex flex-col gap-1">
+                          <label className="!text-[0.75rem] uppercase tracking-wider text-gray-500 font-semibold">Nama Lengkap</label>
+                          <input
+                            className="form-input-clean"
+                            placeholder="Daffa Adli Putra Umardani"
+                            value={ang.nama}
+                            onChange={(e) => updateAnggota(kemen.id, ang.id, "nama", e.target.value)}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <label className="!text-[0.75rem] uppercase tracking-wider text-gray-500 font-semibold">Jabatan</label>
+                          <input
+                            className="form-input-clean"
+                            placeholder="Sekretaris 1"
+                            value={ang.jabatan}
+                            onChange={(e) => updateAnggota(kemen.id, ang.id, "jabatan", e.target.value)}
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <label className="!text-[0.75rem] uppercase tracking-wider text-gray-500 font-semibold">Angkatan</label>
+                          <input
+                            type="number"
+                            className="form-input-clean"
+                            placeholder="26"
+                            value={ang.angkatan}
+                            onChange={(e) => updateAnggota(kemen.id, ang.id, "angkatan", e.target.value)}
+                          />
+                        </div>
                       </div>
 
+                      {/* Tombol Hapus */}
                       <button
                         onClick={() =>
-                          setCabinet(cabinet.map((k) => (k.id === kemen.id ? { ...k, anggota: k.anggota.filter((a: any) => a.id !== ang.id) } : k)))
+                          setCabinet(cabinet.map((k) => (k.id === kemen.id ? { ...k, anggota: k.anggota.filter((a) => a.id !== ang.id) } : k)))
                         }
-                        style={{ background: "none", border: "none", color: "#666", cursor: "pointer" }}
+                        className="p-2 mt-5 text-gray-600 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
+                        title="Hapus Anggota"
                       >
                         <FaTrash size={14} />
                       </button>

@@ -2,8 +2,8 @@
    CABINET SECTION & LAYOUT
    ========================================= */
 .cabinet-section {
-  padding: 60px 0; /* Padding digedein dikit biar lega */
-  overflow: hidden; /* Biar glow nggak bikin horizontal scroll bar bocor */
+  padding: 60px 0;
+  overflow: hidden;
 }
 
 .section-title {
@@ -14,7 +14,7 @@
   font-weight: 800;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  text-shadow: 2px 2px 10px rgba(48, 67, 86, 0.1); /* Efek 3D tipis */
+  text-shadow: 2px 2px 10px rgba(48, 67, 86, 0.1);
 }
 
 /* =========================================
@@ -25,57 +25,38 @@
   flex-direction: row;
   gap: 25px;
   overflow-x: auto;
-  overflow-y: hidden; /* Matiin scroll vertikal biar ga goyang */
-
-  /* INI KUNCINYA: Kasih ruang 5% di kiri-kanan biar ga nempel layar, 
-     dan 40px di bawah biar shadow/glow pas di-hover GA KEPOTONG */
+  overflow-y: hidden;
   padding: 20px 5% 40px 5%;
-
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory; /* Bikin ngerem otomatis (magnet) */
-  scroll-padding-inline: 5%; /* Biar pas ngerem (snap), dia nyisain jarak 5% dari layar */
-
-  /* Sembunyiin scrollbar default di HP biar lebih clean (Opsional) */
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 5%;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Custom Scrollbar biar estetik */
-/* =========================================
-   CABINET HORIZONTAL SCROLLBAR (MATCHING)
-   ========================================= */
-
-/* 1. Aktifkan kembali tapi dibikin ramping */
 .cabinet-scroll-container::-webkit-scrollbar {
-  height: 6px; /* Lebih tipis biar elegan */
-  display: block; /* Ubah dari none ke block */
+  height: 6px;
+  display: block;
 }
 
-/* 2. Jalur Scrollbar */
 .cabinet-scroll-container::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.03); /* Sangat tipis biar ga kotor */
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 10px;
-  margin: 0 5%; /* Biar jalurnya ga mentok ujung layar */
+  margin: 0 5%;
 }
 
-/* 3. Pegangan Scrollbar (Thumb) */
 .cabinet-scroll-container::-webkit-scrollbar-thumb {
-  /* Pakai warna slate dengan transparansi */
   background: rgba(71, 85, 105, 0.4);
   border-radius: 10px;
   transition: all 0.3s ease;
-
-  /* Efek floating: beri border transparan agar thumb terlihat mengecil di tengah */
   border: 1px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
 }
 
-/* 4. Saat di-hover atau di-scroll */
 .cabinet-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(71, 85, 105, 0.8); /* Lebih tegas saat disentuh */
+  background: rgba(71, 85, 105, 0.8);
 }
 
-/* 5. Firefox Support */
 .cabinet-scroll-container {
   scrollbar-width: thin;
   scrollbar-color: rgba(71, 85, 105, 0.4) transparent;
@@ -95,10 +76,7 @@
   overflow: hidden;
   cursor: pointer;
   flex-shrink: 0;
-
-  /* UBAH INI: Biar rata kiri pas nge-snap, bukan di tengah */
   scroll-snap-align: start;
-
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -109,26 +87,20 @@
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* =========================================
-   FADE GRADIENT UNTUK CABINET CARDS
-   ========================================= */
 .cabinet-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
   display: flex;
-  align-items: flex-end; /* Dorong konten ke bawah */
+  align-items: flex-end;
   justify-content: center;
   padding: 30px 20px 25px 20px;
-
-  /* Gradien gelap dari bawah biar teks judul super jelas */
   background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.5) 40%, transparent 100%);
   transition: all 0.4s ease;
 }
 
-/* Bikin teksnya clean tanpa kotak background karena udah ada fade */
 .ministry-tag {
-  background: transparent; /* Hilangin background kaca yang lama (opsional, kalau mau lebih clean) */
+  background: transparent;
   backdrop-filter: none;
   border: none;
   color: #e1e1e1;
@@ -137,28 +109,24 @@
   font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.5px;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); /* Shadow biar teks pop-up dari gambar */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Pas di-hover, fadenya makin naik/gelap dikit biar dramatis */
 .cabinet-card:hover .cabinet-overlay {
   background: linear-gradient(to top, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.7) 50%, transparent 100%);
 }
 
 .cabinet-card:hover .ministry-tag {
-  transform: translateY(-5px); /* Teks naik dikit pas di hover */
+  transform: translateY(-5px);
 }
 
 .cabinet-card:hover .cabinet-bg-img {
-  transform: scale(1.1); /* Gambar nge-zoom mulus */
+  transform: scale(1.1);
 }
 
 /* =========================================
    MODAL & MEMBERS GRID STYLING
-   ========================================= */
-/* =========================================
-   FADE GRADIENT UNTUK MODAL BANNER
    ========================================= */
 .modal-banner {
   position: relative;
@@ -166,17 +134,11 @@
   height: 350px;
 }
 
-/* Ini yang bikin transisi dari gambar ke teks jadi super mulus */
 .banner-gradient {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(
-    to top,
-    rgba(24, 25, 27, 1) 0%,
-    /* Warna solid background modal kamu di paling bawah */ rgba(24, 25, 27, 0.6) 30%,
-    /* Mulai memudar */ transparent 100% /* Transparan di bagian atas gambar */
-  );
+  background: linear-gradient(to top, rgba(24, 25, 27, 1) 0%, rgba(24, 25, 27, 0.6) 30%, transparent 100%);
   pointer-events: none;
 }
 
@@ -199,7 +161,7 @@
   color: white;
   font-size: 1.3rem;
   margin-bottom: 25px;
-  border-left: 4px solid #60a5fa; /* Warna aksen biru terang */
+  border-left: 4px solid #60a5fa;
   padding-left: 15px;
   font-weight: 600;
 }
@@ -210,7 +172,6 @@
   gap: 20px;
 }
 
-/* member card */
 .member-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(8px);
@@ -233,9 +194,9 @@
   aspect-ratio: 1 / 1;
   width: 100%;
   margin: 0 auto 15px;
-  border-radius: 10px; 
+  border-radius: 10px;
   overflow: hidden;
-  border: 3px solid transparent; 
+  border: 3px solid transparent;
   background-origin: border-box;
   background-clip: content-box, border-box;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -265,6 +226,102 @@
   letter-spacing: 0.5px;
 }
 
+.biodata-content {
+  display: flex;
+  flex-direction: row;
+  margin: 2rem;
+  gap: 2rem;
+}
+
+.biodata-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.biodata-kementrian {
+  color: #60a5fa;
+}
+
+.biodata-jabatan-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.biodata-jabatan {
+  background-color: rgba(96, 165, 250, 0.2);
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.member-photo-wrapper.big {
+  aspect-ratio: 3 / 4;
+  max-width: 30%;
+  margin: 0;
+}
+
+/* =========================================
+   MEMBER PROKER LIST
+   ========================================= */
+.member-proker-container {
+  padding: 0 2rem 2rem 2rem;
+  margin-top: -10px;
+}
+
+.proker-title-small {
+  color: white;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  border-left: 3px solid #60a5fa;
+  padding-left: 10px;
+}
+
+.member-proker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.member-proker-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.member-proker-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.proker-arrow-icon {
+  color: #60a5fa;
+  transition: transform 0.3s ease;
+}
+
+.member-proker-item:hover .proker-arrow-icon {
+  transform: translateX(3px);
+}
+
 /* =========================================
    RESPONSIVE BREAKPOINTS
    ========================================= */
@@ -272,33 +329,39 @@
   .section-title {
     font-size: 1.8rem;
   }
-
   .ministry-tag {
     font-size: 0.85rem;
     padding: 10px;
   }
-
   .cabinet-card {
-    min-width: 320px; /* Dikecilin buat tablet/HP gede */
+    min-width: 320px;
   }
-
   .members-grid {
     grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
     gap: 15px;
+  }
+  .biodata-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .member-photo-wrapper.big {
+    max-width: 50%;
+  }
+  .biodata-jabatan-container {
+    justify-content: center;
   }
 }
 
 @media (max-width: 480px) {
   .cabinet-card {
-    min-width: 85vw; /* Lebarnya menuhin 85% layar HP biar pas */
-    aspect-ratio: 4 / 3; /* Kotaknya dibikin agak tinggi di HP */
+    min-width: 85vw;
+    aspect-ratio: 4 / 3;
   }
-
   .ministry-tag {
     font-size: 0.85rem;
     padding: 10px;
   }
-
   .modal-title {
     font-size: 1.5rem;
   }

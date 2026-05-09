@@ -112,6 +112,15 @@
   max-width: 600px;
 }
 
+.form-input-clean {
+  display: block;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 10px;
+  outline: none;
+  max-width: 600px;
+}
+
 .form-input:focus,
 .form-textarea:focus {
   outline: 2px solid #272934;

@@ -33,9 +33,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/api/data/player/route.js",
-    "src/lib/mongodb.js",
-    "src/lib/discord.js",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
