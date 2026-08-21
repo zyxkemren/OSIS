@@ -126,7 +126,7 @@ body {
   justify-content: space-between;
   background-color: #001f3f;
   width: 100%;
-  padding: 12rem 15vw;
+  padding: 20rem 15vw;
   gap: 2rem;
 }
 
@@ -214,41 +214,176 @@ body {
   transition: all 0.3s ease;
 }
 
+/* --- FOOTER STYLING --- */
 .footer {
-  background-color: #304356;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  font-size: 0.8rem;
+  margin: 10rem 0 0;
+  background-color: #0b131e;
+  color: #e1e1e1;
+  padding: 3rem 10vw 2rem 10vw;
   font-family: "Montserrat", sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 1440px) {
-  .sosmed-section {
-    padding: 2.5rem 5rem !important;
-  }
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2.5rem;
+  margin: 3rem 0;
+  text-align: left;
 }
 
-/* Responsive adjustments untuk section dengan padding besar */
+.footer-brand {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-brand h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-brand p {
+  font-size: 0.9rem;
+  color: #a0aec0;
+  line-height: 1.5;
+}
+
+.footer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.footer-info h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.25rem;
+}
+
+.footer-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-item a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.footer-item a:hover {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.footer-bottom {
+  margin: 5rem 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
 @media (max-width: 1024px) {
   .intro-section {
-    padding: 8rem 10vw;
+    padding: 8rem 8vw;
   }
 }
 
 @media (max-width: 768px) {
+  /* Footer Responsif */
+  .footer {
+    margin-top: 4rem;
+    padding: 2.5rem 6vw 1.5rem 6vw;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-brand h3 {
+    font-size: 1.25rem;
+  }
+
+  .footer-brand p,
+  .footer-item {
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+  }
+
+  /* Intro & Video Section Responsif */
   .intro-section {
-    padding: 6rem 5vw;
+    padding: 5rem 5vw;
   }
+
+  .intro-desc {
+    font-size: 1rem;
+  }
+
+  .video-section {
+    padding: 0;
+  }
+
+  /* Social Media Buttons Responsif */
   .sosmed-section {
-    padding: 2.5rem 2rem !important;
+    padding: 2rem 1.5rem !important;
   }
+
   .sosmed-wrapper {
     flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
+    align-items: stretch;
+    gap: 1rem;
   }
+
   .sosmed {
     width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    font-size: 1.5rem;
+  }
+
+  .sosmed span {
+    font-size: 0.9rem;
+  }
+
+  /* Section Proker/Cabinet */
+  .sec3 {
+    padding: 3rem 5vw !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-next {
+    width: 60px;
+    height: 60px;
+    font-size: 1.4rem;
+  }
+
+  .footer {
+    padding: 2rem 4vw 1.5rem 4vw;
   }
 }

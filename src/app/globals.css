@@ -191,7 +191,7 @@ input[type="password"] {
   h2 {
     font-size: 1.8rem;
   }
-  p {
-    font-size: 0.8rem;
+  p, li {
+    font-size: 0.8rem !important;
   }
 }

@@ -209,35 +209,36 @@ export default function ProkerSection({ items, externalSelectedId, onCloseModal,
       {isListOpen && (
         <div className="modal-overlay">
           <div className="modal-backdrop" onClick={() => setIsListOpen(false)}></div>
-          <div className="modal-card custom-scroll" style={{ maxWidth: "600px" }}>
-            <div style={{ padding: "20px", borderBottom: "1px solid #333", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <h3 style={{ color: "white", margin: 0 }}>Semua Proker</h3>
-              <BiX size={30} style={{ color: "white", cursor: "pointer" }} onClick={() => setIsListOpen(false)} />
+
+          {/* Ubah inline style menjadi class list-modal */}
+          <div className="modal-card list-modal">
+            {/* Header Sticky */}
+            <div className="list-header">
+              <h3 className="list-title">Semua Proker</h3>
+              <button className="modal-close-list" onClick={() => setIsListOpen(false)}>
+                <BiX size={28} />
+              </button>
             </div>
-            <div style={{ padding: "20px" }}>
+
+            {/* Body Scrollable */}
+            <div className="list-body custom-scroll">
               {sorted.map((item) => (
                 <div
                   key={item.id}
+                  className="list-item"
                   onClick={() => {
                     setSelectedProker(item);
                     setIsListOpen(false);
                   }}
-                  style={{
-                    display: "flex",
-                    gap: "15px",
-                    marginBottom: "15px",
-                    cursor: "pointer",
-                    background: "#222",
-                    padding: "10px",
-                    borderRadius: "15px",
-                  }}
                 >
-                  <div style={{ position: "relative", width: "80px", height: "50px", borderRadius: "8px", overflow: "hidden" }}>
-                    <Image src={item.thumbnail || fallbackImage} fill alt="t" unoptimized className="proker-img" />
+                  <div className="list-item-img-wrapper">
+                    <Image src={item.thumbnail || fallbackImage} fill alt={item.title} unoptimized className="proker-img" />
                   </div>
-                  <div className="flex flex-col gap-1 justify-center h-full">
-                    <span style={{ color: "white", fontWeight: "500" }}>{item.title}</span>
-                    <span style={{ color: "#60a5fa", fontSize: "0.85rem" }}>{item.divisi}</span>
+                  <div className="list-item-info">
+                    <span className="list-item-title">{item.title}</span>
+                    <span className="list-item-subtitle">
+                      {item.divisi || "Divisi Umum"}
+                    </span>
                   </div>
                 </div>
               ))}

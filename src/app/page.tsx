@@ -2,7 +2,7 @@
 
 import { getData } from "@/lib/supabase";
 import { useState, useEffect } from "react";
-import { FaInstagram, FaYoutube } from "react-icons/fa6";
+import { FaInstagram, FaYoutube, FaEnvelope, FaMapLocationDot } from "react-icons/fa6";
 import Navbar from "@/components/ui/navbar";
 import ProkerSection from "@/components/proker";
 import CabinetSection from "@/components/cabinet";
@@ -163,7 +163,54 @@ export default function HomePage() {
         <ProkerSection items={data.prokers} cabinetItems={data.cabinet} externalSelectedId={selectedId} onCloseModal={() => setSelectedId(null)} />
       </section>
 
-      <footer className="footer">© {data.general?.footer_text || `Kementerian Informasi dan Teknologi ${new Date().getFullYear()}`}</footer>
+      <footer className="footer">
+        <div className="footer-container">
+          {/* Section Brand / Tentang OSIS */}
+          <div className="footer-brand">
+            <h3>{data.general?.website_name || "OSIS SMA PU Al Bayan"}</h3>
+            <p>
+              Wadah aspirasi dan kreasi santri SMA PU Al Bayan Cibadak dalam membangun kepemimpinan bertakwa, cerdas, dan berkarakter.
+            </p>
+          </div>
+
+          {/* Section Kontak & Alamat */}
+          <div className="footer-info">
+            <h4>Hubungi Kami</h4>
+            
+            <div className="footer-item">
+              <FaMapLocationDot className="footer-icon" />
+              <span>
+                Jl. Sekarwangi No. 01, Sekarwangi, Kec. Cibadak, Kabupaten Sukabumi, Jawa Barat 43351
+              </span>
+            </div>
+
+            <div className="footer-item">
+              <FaEnvelope className="footer-icon" />
+              <a href="mailto:osis.albayancibadak@gmail.com">
+                osis.albayancibadak@gmail.com
+              </a>
+            </div>
+
+            <div className="footer-item">
+              <FaInstagram className="footer-icon" />
+              <a
+                href={data.general?.instagram_osis || "https://www.instagram.com/osis.alba/"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                @osis.alba
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Hak Cipta */}
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} Kementerian Informasi dan Teknologi. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </main>
   );
 }

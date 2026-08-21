@@ -2,6 +2,7 @@
    CABINET SECTION & LAYOUT
    ========================================= */
 .cabinet-section {
+  margin: 10rem 0;
   padding: 60px 0;
   overflow: hidden;
 }
